@@ -5,3 +5,5 @@
 ## [android audio关闭延时问题记录](https://github.com/hcly/docs/blob/master/android/android%20audio.md)
 
 ## [a33 android4.4增加有线网络获取设置接口](https://github.com/hcly/docs/blob/master/android/A33%20android4.4%20ethernet.md)
+
+## [android bt相关问题记录](https://github.com/hcly/docs/blob/master/android/android%20bt.md)

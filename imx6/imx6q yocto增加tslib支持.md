@@ -191,4 +191,5 @@ fi
 
 ## 参考链接
 <https://blog.csdn.net/swikon/article/details/78788419?utm_source=blogxgwz9>
+
 <https://www.toradex.com/community/questions/12391/ts-calibrate-in-latest-imx6-apalis.html>

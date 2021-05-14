@@ -1,0 +1,1543 @@
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/AndroidManifest.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/AndroidManifest.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/AndroidManifest.xml	2015-09-11 08:56:42.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/AndroidManifest.xml	2016-03-18 18:41:54.044329993 +0800
+@@ -672,7 +672,45 @@
+             <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
+                 android:resource="@id/display_settings" />
+         </activity-alias>
++<!--add by hclydao-->
++        <activity android:name="Settings$HDMISettingsActivity"
++                android:label="@string/hdmi_settings"
++                android:taskAffinity="">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++                <action android:name="com.android.settings.HDMI_SETTINGS" />
++                <action android:name="android.settings.HDMI_SETTINGS" />
++                <category android:name="android.intent.category.DEFAULT" />
++                <category android:name="android.intent.category.VOICE_LAUNCH" />
++                <category android:name="com.android.settings.SHORTCUT" />
++            </intent-filter>
++            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
++                android:value="com.android.settings.HDMISettings" />
++            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
++                android:resource="@id/hdmi_settings" />
++            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
++                android:value="true" />
++        </activity>
+ 
++        <activity android:name="Settings$EthernetSettingsActivity"
++                android:label="@string/ethernet_settings"
++                android:taskAffinity="">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++                <action android:name="com.android.settings.ETHERNET_SETTINGS" />
++                <action android:name="android.settings.ETHERNET_SETTINGS" />
++                <category android:name="android.intent.category.DEFAULT" />
++                <category android:name="android.intent.category.VOICE_LAUNCH" />
++                <category android:name="com.android.settings.SHORTCUT" />
++            </intent-filter>
++            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
++                android:value="com.android.settings.ethernet.EthernetSettings" />
++            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
++                android:resource="@id/ethernet_settings" />
++            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
++                android:value="true" />
++        </activity>
++<!--add end-->
+         <activity android:name="Settings$DeviceInfoSettingsActivity"
+                 android:theme="@style/Theme.SubSettingsDialogWhenLarge"
+                 android:label="@string/device_info_settings"
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-hdpi/ic_settings_ethernet.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-hdpi/ic_settings_ethernet.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-hdpi/ic_settings_ethernet.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-hdpi/ic_settings_ethernet.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,10 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\00 \00\00\00 \00\00\00szz\F4\00\00\00sRGB\00\AE\CE\E9\00\00\00bKGD\00\FF\00\FF\00\FF\A0\BD\A7\93\00\00\00	pHYs\00\00\00\00\00\9A\9C\00\00\00tIME\D9.6/\x\00\002IDATX\C3\ED\D7\CFk\U\F0ϛ\99ؤ
+\96.\D2\kBͦB\C1_`Q\C1K)\AE\EAN\\A8\A2k\D1?\C0m7\EEE\B7\82\A0.\hq!BQAE\AAş\ADy\881\8D\B5\C6f&sܜ\81\C78\93\CCԥ\B9\F0x\CC{\F7\9D\FB\BD\E7\FB=\DF{\86\BD\F1մD\C4
++\EE\C62\DA\C4l\E3ޭ\AA\EAB\F3e\E7@ߎ簂s\E8\8Dy]\87\B1\DF\E1?\E8\E0\BC\81Ә\C5\.6\C8j\E4}3\9Eh\8D
++v-\E3o\AC\E6\AE\C5QtG\C4^\C5[\B8\98\DFT\88\88M\AE\AAj\90\D6\FA8\82\938^\D7u\AF\94\A2\AEkyo\97R\CE\E3\AB%v\87\B08*]\B1\81p(E\B8\8E\C380\B4\B8R
++̧z;\F19<N\A6\C8|63\B1\95.\E2f<\84%\A8\EB:J)\D5\88~V\80i\00,\E7\F5
++~\CC\00M \91|WY\86K8UJ9\96i\AF\98H\D1ã\85\F0r.\B0\9C\F3\B6\87\DEo\94\D4-u]\91\81f2s1J\9D1洉\ABY>f\99uYh%\A0\F166K)\97p\A5\94\D2CUJi'\C0u\ECO \D54exw\E0޺\AEG\89\AC\8F\BF\F0A\FA\EF\E3\D7\F4\866\D6\F0%\EE瘝,:2\BD1
++\EF%\80%\BF᛬\FD\FD
+^\C1\CE仩\8C(Ë\A7⛞\B0\8Dp[R\D5j\00|\81\97\F0\FD\B4\00\AA\E4s8\83\AAh5\80\CE\D7u}p0ј=\AE৤jW\00\F4\FB\D0\91\A5\94N\8As&\81\9C-\A5\9C\C1Z)e6\E3ts\DE=\B8\AFO`\B0\B3\CB\F8\87K)s\AC \BC\B6\F1Iz\FC|\EA\E1~\C1\81\86F\E6R'\EC\AElfݶ\F0^\AA\B8\E9_\C8gWq\8F$\F0N\BE\EF\A7M
++6'p6U\FB06\A7\\F3l\E8\E7\C27\E5\EE?\C3Ϲ\F3\81\F0\8E\E0~\9C\C7\E7\F865\B0kǳOG\C4刈\D5\D5\D5\D8\E9\EB\F1lD,\C59G\C431;qK\8F\E3\85\E4\B0;\E2@j\AD\83Wx\EFd\EBU\E1N<\9F\CF_\AB\AAjcR#ZL{1\8D\A3\93\BFc\E8@\8A\D4\CA\9E\C2c\B85\BB\A56J
++pk\/\B0[FCHՈ\A6"\86\AE\99\B4\E0n\C6\FD%\F7[\D3\00X\CF`O\8C\E00\80ٴ\DE7\B3\FDZ\B2\F2\DFw0J\CB\D9l\B4'h\DF\B4tS\ED\AB\AA\EA\ED\FD\DB\D9ӌ\00\E2\CDu\B1\D1E?\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-hdpi/ic_settings_hdmi.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-hdpi/ic_settings_hdmi.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-hdpi/ic_settings_hdmi.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-hdpi/ic_settings_hdmi.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,3 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\000\00\00\000\00\00\00\FD1\00\00\00bKGD\00\FF\87\8F̿\00\00\00	pHYs\00\00\00H\00\00\00H\00F\C9k>\00\00\00	vpAg\00\00\000\00\00\000\00\CE\EE\8CW\00\00\83IDATX\C3\ED\96=N\C3@\85\BF\DD5Hi)HAGE\85"!*DM\97\8E\9E \E5(H\94(\80c@K\97\92\C1"\C4\FB(\8B\F8'v\D6\85_\C9\ED̛\BF\9D\E8\D0\E1\DFä\FA#\C3QNj7`\DBo\DC\DBu"A\CF#b|{\96\88[&X\93\B7"'t\A1\B6\F0\92\86B.\B5\9B\AD\C10\E1\A6q%b\AE0[e	\BC2\CE\E4nMb\C8 +\CFw\EC`p\85w\82\E1\9Bݼ\B0\81\F3\86Pl\90M\F4}%:\82\8E\A0#\D8AT*5<\8BV̖\A8\F4P\E8 JuT\D4,;\9F\FC\83\87]b<\AE&\B0\C01\F7؆[\86\E7\84\]\B3\E8s\D9\C4\F6Rܲ\E0\F7\D17\88}\CE\F1-}\C7\EF\B3\AD\D5%\BB\D9\E5/\C3<s\A8$\\AE`>}\DE*t\95\84\EB9㔏\95\D7\D1\D3\E3\91gl`\DF	!+t\A8\B7ŮS\8EXҋ\FABF!}'*\92\A6\FA\AC\F8M%\DD%\EE@ɞ7Z\F8X\BF\CB]%e\88Vp\C48\F63\ABM\AD\A7\C7%w\B8\A2Ȫ;\80*\BB\B6u%\97\B3\ECxm\AD\BD\EDС5~\006/\F8ُ8y\00\00\00%tEXtdate:create\002011-01-21T14:21:14-08:00\F7a\00\00\00%tEXtdate:modify\002011-01-21T14:21:14-08:00p\AA\B4\DD\00\00\00tEXtSoftware\00Adobe ImageReadyq\C9e<\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-mdpi/ic_settings_ethernet.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-mdpi/ic_settings_ethernet.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-mdpi/ic_settings_ethernet.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-mdpi/ic_settings_ethernet.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,10 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\00 \00\00\00 \00\00\00szz\F4\00\00\00sRGB\00\AE\CE\E9\00\00\00bKGD\00\FF\00\FF\00\FF\A0\BD\A7\93\00\00\00	pHYs\00\00\00\00\00\9A\9C\00\00\00tIME\D9.6/\x\00\002IDATX\C3\ED\D7\CFk\U\F0ϛ\99ؤ
+\96.\D2\kBͦB\C1_`Q\C1K)\AE\EAN\\A8\A2k\D1?\C0m7\EEE\B7\82\A0.\hq!BQAE\AAş\ADy\881\8D\B5\C6f&sܜ\81\C78\93\CCԥ\B9\F0x\CC{\F7\9D\FB\BD\E7\FB=\DF{\86\BD\F1մD\C4
++\EE\C62\DA\C4l\E3ޭ\AA\EAB\F3e\E7@ߎ簂s\E8\8Dy]\87\B1\DF\E1?\E8\E0\BC\81Ә\C5\.6\C8j\E4}3\9Eh\8D
++v-\E3o\AC\E6\AE\C5QtG\C4^\C5[\B8\98\DFT\88\88M\AE\AAj\90\D6\FA8\82\938^\D7u\AF\94\A2\AEkyo\97R\CE\E3\AB%v\87\B08*]\B1\81p(E\B8\8E\C380\B4\B8R
++̧z;\F19<N\A6\C8|63\B1\95.\E2f<\84%\A8\EB:J)\D5\88~V\80i\00,\E7\F5
++~\CC\00M \91|WY\86K8UJ9\96i\AF\98H\D1ã\85\F0r.\B0\9C\F3\B6\87\DEo\94\D4-u]\91\81f2s1J\9D1洉\ABY>f\99uYh%\A0\F166K)\97p\A5\94\D2CUJi'\C0u\ECO \D54exw\E0޺\AEG\89\AC\8F\BF\F0A\FA\EF\E3\D7\F4\866\D6\F0%\EE瘝,:2\BD1
++\EF%\80%\BF᛬\FD\FD
+^\C1\CE仩\8C(Ë\A7⛞\B0\8Dp[R\D5j\00|\81\97\F0\FD\B4\00\AA\E4s8\83\AAh5\80\CE\D7u}p0ј=\AE৤jW\00\F4\FB\D0\91\A5\94N\8As&\81\9C-\A5\9C\C1Z)e6\E3ts\DE=\B8\AFO`\B0\B3\CB\F8\87K)s\AC \BC\B6\F1Iz\FC|\EA\E1~\C1\81\86F\E6R'\EC\AElfݶ\F0^\AA\B8\E9_\C8gWq\8F$\F0N\BE\EF\A7M
++6'p6U\FB06\A7\\F3l\E8\E7\C27\E5\EE?\C3Ϲ\F3\81\F0\8E\E0~\9C\C7\E7\F865\B0kǳOG\C4刈\D5\D5\D5\D8\E9\EB\F1lD,\C59G\C431;qK\8F\E3\85\E4\B0;\E2@j\AD\83Wx\EFd\EBU\E1N<\9F\CF_\AB\AAjcR#ZL{1\8D\A3\93\BFc\E8@\8A\D4\CA\9E\C2c\B85\BB\A56J
++pk\/\B0[FCHՈ\A6"\86\AE\99\B4\E0n\C6\FD%\F7[\D3\00X\CF`O\8C\E00\80ٴ\DE7\B3\FDZ\B2\F2\DFw0J\CB\D9l\B4'h\DF\B4tS\ED\AB\AA\EA\ED\FD\DB\D9ӌ\00\E2\CDu\B1\D1E?\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,3 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\000\00\00\000\00\00\00\FD1\00\00\00bKGD\00\FF\87\8F̿\00\00\00	pHYs\00\00\00H\00\00\00H\00F\C9k>\00\00\00	vpAg\00\00\000\00\00\000\00\CE\EE\8CW\00\00\83IDATX\C3\ED\96=N\C3@\85\BF\DD5Hi)HAGE\85"!*DM\97\8E\9E \E5(H\94(\80c@K\97\92\C1"\C4\FB(\8B\F8'v\D6\85_\C9\ED̛\BF\9D\E8\D0\E1\DFä\FA#\C3QNj7`\DBo\DC\DBu"A\CF#b|{\96\88[&X\93\B7"'t\A1\B6\F0\92\86B.\B5\9B\AD\C10\E1\A6q%b\AE0[e	\BC2\CE\E4nMb\C8 +\CFw\EC`p\85w\82\E1\9Bݼ\B0\81\F3\86Pl\90M\F4}%:\82\8E\A0#\D8AT*5<\8BV̖\A8\F4P\E8 JuT\D4,;\9F\FC\83\87]b<\AE&\B0\C01\F7؆[\86\E7\84\]\B3\E8s\D9\C4\F6Rܲ\E0\F7\D17\88}\CE\F1-}\C7\EF\B3\AD\D5%\BB\D9\E5/\C3<s\A8$\\AE`>}\DE*t\95\84\EB9㔏\95\D7\D1\D3\E3\91gl`\DF	!+t\A8\B7ŮS\8EXҋ\FABF!}'*\92\A6\FA\AC\F8M%\DD%\EE@ɞ7Z\F8X\BF\CB]%e\88Vp\C48\F63\ABM\AD\A7\C7%w\B8\A2Ȫ;\80*\BB\B6u%\97\B3\ECxm\AD\BD\EDС5~\006/\F8ُ8y\00\00\00%tEXtdate:create\002011-01-21T14:21:14-08:00\F7a\00\00\00%tEXtdate:modify\002011-01-21T14:21:14-08:00p\AA\B4\DD\00\00\00tEXtSoftware\00Adobe ImageReadyq\C9e<\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xhdpi/ic_settings_ethernet.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xhdpi/ic_settings_ethernet.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xhdpi/ic_settings_ethernet.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xhdpi/ic_settings_ethernet.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,10 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\00 \00\00\00 \00\00\00szz\F4\00\00\00sRGB\00\AE\CE\E9\00\00\00bKGD\00\FF\00\FF\00\FF\A0\BD\A7\93\00\00\00	pHYs\00\00\00\00\00\9A\9C\00\00\00tIME\D9.6/\x\00\002IDATX\C3\ED\D7\CFk\U\F0ϛ\99ؤ
+\96.\D2\kBͦB\C1_`Q\C1K)\AE\EAN\\A8\A2k\D1?\C0m7\EEE\B7\82\A0.\hq!BQAE\AAş\ADy\881\8D\B5\C6f&sܜ\81\C78\93\CCԥ\B9\F0x\CC{\F7\9D\FB\BD\E7\FB=\DF{\86\BD\F1մD\C4
++\EE\C62\DA\C4l\E3ޭ\AA\EAB\F3e\E7@ߎ簂s\E8\8Dy]\87\B1\DF\E1?\E8\E0\BC\81Ә\C5\.6\C8j\E4}3\9Eh\8D
++v-\E3o\AC\E6\AE\C5QtG\C4^\C5[\B8\98\DFT\88\88M\AE\AAj\90\D6\FA8\82\938^\D7u\AF\94\A2\AEkyo\97R\CE\E3\AB%v\87\B08*]\B1\81p(E\B8\8E\C380\B4\B8R
++̧z;\F19<N\A6\C8|63\B1\95.\E2f<\84%\A8\EB:J)\D5\88~V\80i\00,\E7\F5
++~\CC\00M \91|WY\86K8UJ9\96i\AF\98H\D1ã\85\F0r.\B0\9C\F3\B6\87\DEo\94\D4-u]\91\81f2s1J\9D1洉\ABY>f\99uYh%\A0\F166K)\97p\A5\94\D2CUJi'\C0u\ECO \D54exw\E0޺\AEG\89\AC\8F\BF\F0A\FA\EF\E3\D7\F4\866\D6\F0%\EE瘝,:2\BD1
++\EF%\80%\BF᛬\FD\FD
+^\C1\CE仩\8C(Ë\A7⛞\B0\8Dp[R\D5j\00|\81\97\F0\FD\B4\00\AA\E4s8\83\AAh5\80\CE\D7u}p0ј=\AE৤jW\00\F4\FB\D0\91\A5\94N\8As&\81\9C-\A5\9C\C1Z)e6\E3ts\DE=\B8\AFO`\B0\B3\CB\F8\87K)s\AC \BC\B6\F1Iz\FC|\EA\E1~\C1\81\86F\E6R'\EC\AElfݶ\F0^\AA\B8\E9_\C8gWq\8F$\F0N\BE\EF\A7M
++6'p6U\FB06\A7\\F3l\E8\E7\C27\E5\EE?\C3Ϲ\F3\81\F0\8E\E0~\9C\C7\E7\F865\B0kǳOG\C4刈\D5\D5\D5\D8\E9\EB\F1lD,\C59G\C431;qK\8F\E3\85\E4\B0;\E2@j\AD\83Wx\EFd\EBU\E1N<\9F\CF_\AB\AAjcR#ZL{1\8D\A3\93\BFc\E8@\8A\D4\CA\9E\C2c\B85\BB\A56J
++pk\/\B0[FCHՈ\A6"\86\AE\99\B4\E0n\C6\FD%\F7[\D3\00X\CF`O\8C\E00\80ٴ\DE7\B3\FDZ\B2\F2\DFw0J\CB\D9l\B4'h\DF\B4tS\ED\AB\AA\EA\ED\FD\DB\D9ӌ\00\E2\CDu\B1\D1E?\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xhdpi/ic_settings_hdmi.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xhdpi/ic_settings_hdmi.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xhdpi/ic_settings_hdmi.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xhdpi/ic_settings_hdmi.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,3 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\000\00\00\000\00\00\00\FD1\00\00\00bKGD\00\FF\87\8F̿\00\00\00	pHYs\00\00\00H\00\00\00H\00F\C9k>\00\00\00	vpAg\00\00\000\00\00\000\00\CE\EE\8CW\00\00\83IDATX\C3\ED\96=N\C3@\85\BF\DD5Hi)HAGE\85"!*DM\97\8E\9E \E5(H\94(\80c@K\97\92\C1"\C4\FB(\8B\F8'v\D6\85_\C9\ED̛\BF\9D\E8\D0\E1\DFä\FA#\C3QNj7`\DBo\DC\DBu"A\CF#b|{\96\88[&X\93\B7"'t\A1\B6\F0\92\86B.\B5\9B\AD\C10\E1\A6q%b\AE0[e	\BC2\CE\E4nMb\C8 +\CFw\EC`p\85w\82\E1\9Bݼ\B0\81\F3\86Pl\90M\F4}%:\82\8E\A0#\D8AT*5<\8BV̖\A8\F4P\E8 JuT\D4,;\9F\FC\83\87]b<\AE&\B0\C01\F7؆[\86\E7\84\]\B3\E8s\D9\C4\F6Rܲ\E0\F7\D17\88}\CE\F1-}\C7\EF\B3\AD\D5%\BB\D9\E5/\C3<s\A8$\\AE`>}\DE*t\95\84\EB9㔏\95\D7\D1\D3\E3\91gl`\DF	!+t\A8\B7ŮS\8EXҋ\FABF!}'*\92\A6\FA\AC\F8M%\DD%\EE@ɞ7Z\F8X\BF\CB]%e\88Vp\C48\F63\ABM\AD\A7\C7%w\B8\A2Ȫ;\80*\BB\B6u%\97\B3\ECxm\AD\BD\EDС5~\006/\F8ُ8y\00\00\00%tEXtdate:create\002011-01-21T14:21:14-08:00\F7a\00\00\00%tEXtdate:modify\002011-01-21T14:21:14-08:00p\AA\B4\DD\00\00\00tEXtSoftware\00Adobe ImageReadyq\C9e<\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_ethernet.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_ethernet.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_ethernet.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_ethernet.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,10 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\00 \00\00\00 \00\00\00szz\F4\00\00\00sRGB\00\AE\CE\E9\00\00\00bKGD\00\FF\00\FF\00\FF\A0\BD\A7\93\00\00\00	pHYs\00\00\00\00\00\9A\9C\00\00\00tIME\D9.6/\x\00\002IDATX\C3\ED\D7\CFk\U\F0ϛ\99ؤ
+\96.\D2\kBͦB\C1_`Q\C1K)\AE\EAN\\A8\A2k\D1?\C0m7\EEE\B7\82\A0.\hq!BQAE\AAş\ADy\881\8D\B5\C6f&sܜ\81\C78\93\CCԥ\B9\F0x\CC{\F7\9D\FB\BD\E7\FB=\DF{\86\BD\F1մD\C4
++\EE\C62\DA\C4l\E3ޭ\AA\EAB\F3e\E7@ߎ簂s\E8\8Dy]\87\B1\DF\E1?\E8\E0\BC\81Ә\C5\.6\C8j\E4}3\9Eh\8D
++v-\E3o\AC\E6\AE\C5QtG\C4^\C5[\B8\98\DFT\88\88M\AE\AAj\90\D6\FA8\82\938^\D7u\AF\94\A2\AEkyo\97R\CE\E3\AB%v\87\B08*]\B1\81p(E\B8\8E\C380\B4\B8R
++̧z;\F19<N\A6\C8|63\B1\95.\E2f<\84%\A8\EB:J)\D5\88~V\80i\00,\E7\F5
++~\CC\00M \91|WY\86K8UJ9\96i\AF\98H\D1ã\85\F0r.\B0\9C\F3\B6\87\DEo\94\D4-u]\91\81f2s1J\9D1洉\ABY>f\99uYh%\A0\F166K)\97p\A5\94\D2CUJi'\C0u\ECO \D54exw\E0޺\AEG\89\AC\8F\BF\F0A\FA\EF\E3\D7\F4\866\D6\F0%\EE瘝,:2\BD1
++\EF%\80%\BF᛬\FD\FD
+^\C1\CE仩\8C(Ë\A7⛞\B0\8Dp[R\D5j\00|\81\97\F0\FD\B4\00\AA\E4s8\83\AAh5\80\CE\D7u}p0ј=\AE৤jW\00\F4\FB\D0\91\A5\94N\8As&\81\9C-\A5\9C\C1Z)e6\E3ts\DE=\B8\AFO`\B0\B3\CB\F8\87K)s\AC \BC\B6\F1Iz\FC|\EA\E1~\C1\81\86F\E6R'\EC\AElfݶ\F0^\AA\B8\E9_\C8gWq\8F$\F0N\BE\EF\A7M
++6'p6U\FB06\A7\\F3l\E8\E7\C27\E5\EE?\C3Ϲ\F3\81\F0\8E\E0~\9C\C7\E7\F865\B0kǳOG\C4刈\D5\D5\D5\D8\E9\EB\F1lD,\C59G\C431;qK\8F\E3\85\E4\B0;\E2@j\AD\83Wx\EFd\EBU\E1N<\9F\CF_\AB\AAjcR#ZL{1\8D\A3\93\BFc\E8@\8A\D4\CA\9E\C2c\B85\BB\A56J
++pk\/\B0[FCHՈ\A6"\86\AE\99\B4\E0n\C6\FD%\F7[\D3\00X\CF`O\8C\E00\80ٴ\DE7\B3\FDZ\B2\F2\DFw0J\CB\D9l\B4'h\DF\B4tS\ED\AB\AA\EA\ED\FD\DB\D9ӌ\00\E2\CDu\B1\D1E?\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_hdmi.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_hdmi.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_hdmi.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxhdpi/ic_settings_hdmi.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,3 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\000\00\00\000\00\00\00\FD1\00\00\00bKGD\00\FF\87\8F̿\00\00\00	pHYs\00\00\00H\00\00\00H\00F\C9k>\00\00\00	vpAg\00\00\000\00\00\000\00\CE\EE\8CW\00\00\83IDATX\C3\ED\96=N\C3@\85\BF\DD5Hi)HAGE\85"!*DM\97\8E\9E \E5(H\94(\80c@K\97\92\C1"\C4\FB(\8B\F8'v\D6\85_\C9\ED̛\BF\9D\E8\D0\E1\DFä\FA#\C3QNj7`\DBo\DC\DBu"A\CF#b|{\96\88[&X\93\B7"'t\A1\B6\F0\92\86B.\B5\9B\AD\C10\E1\A6q%b\AE0[e	\BC2\CE\E4nMb\C8 +\CFw\EC`p\85w\82\E1\9Bݼ\B0\81\F3\86Pl\90M\F4}%:\82\8E\A0#\D8AT*5<\8BV̖\A8\F4P\E8 JuT\D4,;\9F\FC\83\87]b<\AE&\B0\C01\F7؆[\86\E7\84\]\B3\E8s\D9\C4\F6Rܲ\E0\F7\D17\88}\CE\F1-}\C7\EF\B3\AD\D5%\BB\D9\E5/\C3<s\A8$\\AE`>}\DE*t\95\84\EB9㔏\95\D7\D1\D3\E3\91gl`\DF	!+t\A8\B7ŮS\8EXҋ\FABF!}'*\92\A6\FA\AC\F8M%\DD%\EE@ɞ7Z\F8X\BF\CB]%e\88Vp\C48\F63\ABM\AD\A7\C7%w\B8\A2Ȫ;\80*\BB\B6u%\97\B3\ECxm\AD\BD\EDС5~\006/\F8ُ8y\00\00\00%tEXtdate:create\002011-01-21T14:21:14-08:00\F7a\00\00\00%tEXtdate:modify\002011-01-21T14:21:14-08:00p\AA\B4\DD\00\00\00tEXtSoftware\00Adobe ImageReadyq\C9e<\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_ethernet.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_ethernet.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_ethernet.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_ethernet.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,10 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\00 \00\00\00 \00\00\00szz\F4\00\00\00sRGB\00\AE\CE\E9\00\00\00bKGD\00\FF\00\FF\00\FF\A0\BD\A7\93\00\00\00	pHYs\00\00\00\00\00\9A\9C\00\00\00tIME\D9.6/\x\00\002IDATX\C3\ED\D7\CFk\U\F0ϛ\99ؤ
+\96.\D2\kBͦB\C1_`Q\C1K)\AE\EAN\\A8\A2k\D1?\C0m7\EEE\B7\82\A0.\hq!BQAE\AAş\ADy\881\8D\B5\C6f&sܜ\81\C78\93\CCԥ\B9\F0x\CC{\F7\9D\FB\BD\E7\FB=\DF{\86\BD\F1մD\C4
++\EE\C62\DA\C4l\E3ޭ\AA\EAB\F3e\E7@ߎ簂s\E8\8Dy]\87\B1\DF\E1?\E8\E0\BC\81Ә\C5\.6\C8j\E4}3\9Eh\8D
++v-\E3o\AC\E6\AE\C5QtG\C4^\C5[\B8\98\DFT\88\88M\AE\AAj\90\D6\FA8\82\938^\D7u\AF\94\A2\AEkyo\97R\CE\E3\AB%v\87\B08*]\B1\81p(E\B8\8E\C380\B4\B8R
++̧z;\F19<N\A6\C8|63\B1\95.\E2f<\84%\A8\EB:J)\D5\88~V\80i\00,\E7\F5
++~\CC\00M \91|WY\86K8UJ9\96i\AF\98H\D1ã\85\F0r.\B0\9C\F3\B6\87\DEo\94\D4-u]\91\81f2s1J\9D1洉\ABY>f\99uYh%\A0\F166K)\97p\A5\94\D2CUJi'\C0u\ECO \D54exw\E0޺\AEG\89\AC\8F\BF\F0A\FA\EF\E3\D7\F4\866\D6\F0%\EE瘝,:2\BD1
++\EF%\80%\BF᛬\FD\FD
+^\C1\CE仩\8C(Ë\A7⛞\B0\8Dp[R\D5j\00|\81\97\F0\FD\B4\00\AA\E4s8\83\AAh5\80\CE\D7u}p0ј=\AE৤jW\00\F4\FB\D0\91\A5\94N\8As&\81\9C-\A5\9C\C1Z)e6\E3ts\DE=\B8\AFO`\B0\B3\CB\F8\87K)s\AC \BC\B6\F1Iz\FC|\EA\E1~\C1\81\86F\E6R'\EC\AElfݶ\F0^\AA\B8\E9_\C8gWq\8F$\F0N\BE\EF\A7M
++6'p6U\FB06\A7\\F3l\E8\E7\C27\E5\EE?\C3Ϲ\F3\81\F0\8E\E0~\9C\C7\E7\F865\B0kǳOG\C4刈\D5\D5\D5\D8\E9\EB\F1lD,\C59G\C431;qK\8F\E3\85\E4\B0;\E2@j\AD\83Wx\EFd\EBU\E1N<\9F\CF_\AB\AAjcR#ZL{1\8D\A3\93\BFc\E8@\8A\D4\CA\9E\C2c\B85\BB\A56J
++pk\/\B0[FCHՈ\A6"\86\AE\99\B4\E0n\C6\FD%\F7[\D3\00X\CF`O\8C\E00\80ٴ\DE7\B3\FDZ\B2\F2\DFw0J\CB\D9l\B4'h\DF\B4tS\ED\AB\AA\EA\ED\FD\DB\D9ӌ\00\E2\CDu\B1\D1E?\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_hdmi.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_hdmi.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_hdmi.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/drawable-xxxhdpi/ic_settings_hdmi.png	2012-11-08 01:46:57.000000000 +0800
+@@ -0,0 +1,3 @@
++\89PNG
++
++\00\00\00
+IHDR\00\00\000\00\00\000\00\00\00\FD1\00\00\00bKGD\00\FF\87\8F̿\00\00\00	pHYs\00\00\00H\00\00\00H\00F\C9k>\00\00\00	vpAg\00\00\000\00\00\000\00\CE\EE\8CW\00\00\83IDATX\C3\ED\96=N\C3@\85\BF\DD5Hi)HAGE\85"!*DM\97\8E\9E \E5(H\94(\80c@K\97\92\C1"\C4\FB(\8B\F8'v\D6\85_\C9\ED̛\BF\9D\E8\D0\E1\DFä\FA#\C3QNj7`\DBo\DC\DBu"A\CF#b|{\96\88[&X\93\B7"'t\A1\B6\F0\92\86B.\B5\9B\AD\C10\E1\A6q%b\AE0[e	\BC2\CE\E4nMb\C8 +\CFw\EC`p\85w\82\E1\9Bݼ\B0\81\F3\86Pl\90M\F4}%:\82\8E\A0#\D8AT*5<\8BV̖\A8\F4P\E8 JuT\D4,;\9F\FC\83\87]b<\AE&\B0\C01\F7؆[\86\E7\84\]\B3\E8s\D9\C4\F6Rܲ\E0\F7\D17\88}\CE\F1-}\C7\EF\B3\AD\D5%\BB\D9\E5/\C3<s\A8$\\AE`>}\DE*t\95\84\EB9㔏\95\D7\D1\D3\E3\91gl`\DF	!+t\A8\B7ŮS\8EXҋ\FABF!}'*\92\A6\FA\AC\F8M%\DD%\EE@ɞ7Z\F8X\BF\CB]%e\88Vp\C48\F63\ABM\AD\A7\C7%w\B8\A2Ȫ;\80*\BB\B6u%\97\B3\ECxm\AD\BD\EDС5~\006/\F8ُ8y\00\00\00%tEXtdate:create\002011-01-21T14:21:14-08:00\F7a\00\00\00%tEXtdate:modify\002011-01-21T14:21:14-08:00p\AA\B4\DD\00\00\00tEXtSoftware\00Adobe ImageReadyq\C9e<\00\00\00\00IEND\AEB`\82
+\ 文件尾没有 newline 字符
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/layout/eth_configure.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/layout/eth_configure.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/layout/eth_configure.xml	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/layout/eth_configure.xml	2016-03-22 18:01:41.531530319 +0800
+@@ -0,0 +1,112 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++        android:layout_width="fill_parent"
++        android:layout_height="wrap_content">
++
++    <LinearLayout
++            android:layout_width="fill_parent"
++            android:layout_height="wrap_content"
++            android:padding="8dip"
++            android:orientation="vertical">
++
++            <LinearLayout
++                android:id="@+id/table"
++                android:layout_width="fill_parent"
++                android:layout_height="fill_parent"
++                android:orientation="vertical">
++            </LinearLayout>
++
++        <!-- Connection type -->
++	<TextView android:id="@+id/eth_con_type"
++                style="?android:attr/textAppearanceSmall"
++                android:layout_width="fill_parent"
++                android:layout_height="wrap_content"
++                android:layout_marginTop="8dip"
++                android:text="@string/eth_con_type" />
++        <RadioGroup android:id="@+id/con_type"
++                android:layout_width="fill_parent"
++                android:layout_height="wrap_content"
++                >
++                <RadioButton android:id="@+id/dhcp_radio"
++			style="?android:attr/textAppearanceSmall"
++			android:layout_width="fill_parent"
++			android:layout_height="wrap_content"
++			android:text="@string/eth_con_type_dhcp"
++                ></RadioButton>
++                <RadioButton android:id="@+id/manual_radio"
++			style="?android:attr/textAppearanceSmall"
++			android:layout_width="fill_parent"
++			android:layout_height="wrap_content"
++			android:text="@string/eth_con_type_manual"
++                ></RadioButton>
++        </RadioGroup>
++
++        <!-- IP address -->
++        <LinearLayout android:id="@+id/enterprise_wrapper"
++            android:layout_width="fill_parent"
++            android:layout_height="wrap_content"
++            android:padding="0dip"
++            android:orientation="vertical">
++                <TextView android:id="@+id/ipaddr_text"
++                        style="?android:attr/textAppearanceSmall"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="8dip"
++                        android:text="@string/eth_ipaddr" />
++                <EditText android:id="@+id/ipaddr_edit"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="2dip"
++                        android:singleLine="true" />
++<!--
++                <TextView android:id="@+id/netmask_text"
++                        style="?android:attr/textAppearanceSmall"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="8dip"
++                        android:text="@string/eth_mask" />
++                <EditText android:id="@+id/netmask_edit"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="2dip"
++                        android:singleLine="true" />
++-->
++                <TextView android:id="@+id/prefix_text"
++                        style="?android:attr/textAppearanceSmall"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="8dip"
++                        android:text="@string/eth_network_prefix_length" />
++                <EditText android:id="@+id/prefix_edit"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="2dip"
++                        android:singleLine="true" />
++
++                <TextView android:id="@+id/dns_text"
++                        style="?android:attr/textAppearanceSmall"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="8dip"
++                        android:text="@string/eth_dns" />
++                <EditText android:id="@+id/eth_dns_edit"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="2dip"
++                        android:singleLine="true" />
++                <TextView android:id="@+id/gw_text"
++                        style="?android:attr/textAppearanceSmall"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="8dip"
++                        android:text="@string/eth_gw" />
++                <EditText android:id="@+id/eth_gw_edit"
++                        android:layout_width="fill_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_marginTop="2dip"
++                        android:singleLine="true" />
++        </LinearLayout>
++
++    </LinearLayout>
++
++</ScrollView>
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/layout/preference_dialog_hdmi_screen_zoom.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/layout/preference_dialog_hdmi_screen_zoom.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/layout/preference_dialog_hdmi_screen_zoom.xml	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/layout/preference_dialog_hdmi_screen_zoom.xml	2015-07-28 11:50:41.000000000 +0800
+@@ -0,0 +1,43 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2008 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++
++     Copyright (C) 2009 Motorola, Inc.
++     March 23, 2009 - Motorola - Allow automatic brightness changes.
++-->
++
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent">
++    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:orientation="vertical"
++            android:gravity="center_horizontal"
++            android:paddingBottom="20dip">
++
++        <ImageView android:id="@android:id/icon"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:paddingTop="20dip"
++                android:visibility="gone"
++                android:contentDescription="@null" />
++
++        <SeekBar android:id="@*android:id/seekbar"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:padding="20dip" />
++
++    </LinearLayout>
++</ScrollView>
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/values/arrays.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/values/arrays.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/values/arrays.xml	2015-09-11 08:56:43.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/values/arrays.xml	2016-01-29 15:22:32.029511090 +0800
+@@ -48,6 +48,7 @@
+         <item>5 minutes</item>
+         <item>10 minutes</item>
+         <item>30 minutes</item>
++		<item>Never</item>
+     </string-array>
+ 
+     <!-- Do not translate. -->
+@@ -66,6 +67,8 @@
+         <item>600000</item>
+         <!-- Do not translate. -->
+         <item>1800000</item>
++        <!-- Do not translate. -->
++        <item>-1</item>
+     </string-array>
+ 
+     <!-- Display settings.  The delay in inactivity before the dream is shown. These are shown in a list dialog. -->
+@@ -78,6 +81,7 @@
+         <item>5 minutes</item>
+         <item>10 minutes</item>
+         <item>30 minutes</item>
++		<item>Never</item>
+     </string-array>
+ 
+     <!-- Do not translate. -->
+@@ -98,6 +102,8 @@
+         <item>600000</item>
+         <!-- Do not translate. -->
+         <item>1800000</item>
++        <!-- Do not translate. -->
++        <item>-1</item>
+     </string-array>
+ 
+     <!-- Security settings.  The delay after screen is turned off until device locks.
+@@ -1260,4 +1266,21 @@
+         <item>Pink</item>
+         <item>Red</item>
+     </string-array>
++
++
++    <!-- HDMI settings.  HDMI Supported resolution. add by hclydao -->
++    <string-array name="hdmi_resolution_entries" translatable="false">
++        <item>1920x1080p</item>
++        <item>1280x720p</item>
++        <item>720x576p</item>
++        <item>720x480p</item>
++    </string-array>
++
++    <!-- Do not translate: linux kernel/include/linux/videodev2.h. -->
++    <string-array name="hdmi_resolution_values" translatable="false">
++        <item>18</item>
++        <item>8</item>
++        <item>2</item>
++        <item>19</item>
++    </string-array>
+ </resources>
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/values/strings.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/values/strings.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/values/strings.xml	2015-09-11 08:56:43.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/values/strings.xml	2016-03-23 11:42:34.763887970 +0800
+@@ -6050,4 +6050,32 @@
+    <string name="imei_information_summary">IMEI relative information</string>
+    <string name="slot_number">(Slot<xliff:g id="slot_num">%1$d</xliff:g>)</string>
+ 
++    <!-- HDMI settings title add by hclydao-->
++    <string name="hdmi_settings">HDMI</string>
++    <string name="hdmi_resolution">HDMI Resolution</string>
++    <string name="hdmi_screen_zoom">HDMI Screen Zoom</string>
++    <string name="hdmi_screen_downsizing">HDMI Screen Downsizing</string>
++    <!-- Eth settings title add by hclydao-->
++    <string name="ethernet_settings">Ethernet</string>
++    <!-- Ethernet configuration dialog add by hcldyao-->
++    <string name="eth_config_title">Configure Ethernet device</string>
++    <string name="eth_setting">Ethernet</string>
++    <string name="eth_dev_list">Ethernet Devices:</string>
++    <string name="eth_con_type">Connection Type</string>
++    <string name="eth_con_type_dhcp">DHCP</string>
++    <string name="eth_con_type_manual">Static IP</string>
++    <string name="eth_dns">DNS address</string>
++    <string name="eth_gw">Gateway address</string>
++    <string name="eth_ipaddr">IP address</string>
++    <string name="eth_quick_toggle_title">Ethernet</string>
++    <string name="eth_quick_toggle_summary">Turn on Ethernet</string>
++    <string name="eth_conf_perf_title">Ethernet configuration</string>
++    <string name="eth_conf_summary">Configure Ethernet devices</string>
++    <string name="eth_mask">Netmask</string>
++    <string name="eth_toggle_summary_off">Turn off Ethernet</string>
++    <string name="eth_toggle_summary_on">Turn on Ethernet</string>
++    <string name="eth_settings_error">Failed to set: Please enter the valid characters 0~255</string>
++	<string name="eth_settings_empty">can\'t be empty</string>
++    <!-- Label for the network prefix of the network [CHAR LIMIT=25]-->
++    <string name="eth_network_prefix_length">Network prefix length</string>
+ </resources>
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/xml/dashboard_categories.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/xml/dashboard_categories.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/xml/dashboard_categories.xml	2015-09-11 08:56:43.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/xml/dashboard_categories.xml	2016-03-21 15:11:25.686482914 +0800
+@@ -38,6 +38,13 @@
+                 android:icon="@drawable/ic_settings_bluetooth2"
+                 />
+ 
++		<!-- ethernet add by hclydao-->
++		<dashboard-tile
++		    android:id="@+id/ethernet_settings"
++		    android:icon="@drawable/ic_settings_dock"
++		    android:fragment="com.android.settings.ethernet.EthernetSettings"
++		    android:title="@string/ethernet_settings" />
++
+         <!-- SIM Cards -->
+         <dashboard-tile
+                 android:id="@+id/sim_settings"
+@@ -92,6 +99,13 @@
+                 android:icon="@drawable/ic_settings_display"
+                 />
+ 
++		<!-- HDMI add by hclydao-->
++		<dashboard-tile
++		    android:id="@+id/hdmi_settings"
++		    android:icon="@drawable/ic_settings_dock"
++		    android:fragment="com.android.settings.HDMISettings"
++		    android:title="@string/hdmi_settings" />
++
+         <!-- Notifications -->
+         <dashboard-tile
+                 android:id="@+id/notification_settings"
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/xml/ethernet_settings.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/xml/ethernet_settings.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/xml/ethernet_settings.xml	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/xml/ethernet_settings.xml	2016-03-22 16:11:25.543490278 +0800
+@@ -0,0 +1,25 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2010 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++
++<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
++        android:title="@string/ethernet_settings"
++        xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
++        <Preference
++            android:title="@string/eth_conf_perf_title"
++            android:summary="@string/eth_conf_summary"
++            android:key="ETHERNET_CONFIG"
++            android:persistent="false" />
++</PreferenceScreen>
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/xml/hdmi_settings.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/xml/hdmi_settings.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/res/xml/hdmi_settings.xml	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/res/xml/hdmi_settings.xml	2016-01-29 16:44:05.557555266 +0800
+@@ -0,0 +1,37 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2010 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++
++<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
++        android:title="@string/hdmi_settings"
++        xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
++
++        <ListPreference
++                android:key="hdmi_resolution"
++                android:title="@string/hdmi_resolution"
++                android:persistent="false"
++                android:entries="@array/hdmi_resolution_entries"
++                android:entryValues="@array/hdmi_resolution_values" />
++
++        <com.android.settings.HDMIScreenZoomPreference
++                android:key="hdmi_screen_zoom"
++                android:title="@string/hdmi_screen_zoom"
++                android:dialogTitle="@string/hdmi_screen_zoom" />
++
++        <CheckBoxPreference
++            android:key="enable_hdmi_screen_downsizing"
++            android:title="@string/hdmi_screen_downsizing"/>
++
++</PreferenceScreen>
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/ethernet/EthernetDialog.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/ethernet/EthernetDialog.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/ethernet/EthernetDialog.java	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/ethernet/EthernetDialog.java	2016-03-24 16:06:05.990152332 +0800
+@@ -0,0 +1,353 @@
++/*
++ * Copyright (C) 2010 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package com.android.settings.ethernet;
++
++import com.android.settings.R;
++
++import android.app.AlertDialog;
++import android.content.Context;
++import android.content.DialogInterface;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.RadioButton;
++import android.util.Slog;
++import android.view.inputmethod.InputMethodManager;
++import android.net.IpConfiguration;
++import android.net.IpConfiguration.IpAssignment;
++import android.net.IpConfiguration.ProxySettings;
++import android.os.Environment;
++import android.util.SparseArray;
++import android.net.StaticIpConfiguration;
++import android.net.EthernetManager;
++import java.net.InetAddress;
++import java.net.Inet4Address;
++import java.util.Iterator;
++import android.text.TextUtils;
++import android.net.LinkAddress;
++import android.net.NetworkUtils;
++import android.net.ConnectivityManager;
++import android.net.LinkProperties;
++import com.android.settings.Utils;
++import android.widget.Toast;
++import android.net.EthernetManager;
++import android.provider.Settings;
++
++class EthernetDialog extends AlertDialog implements DialogInterface.OnClickListener, DialogInterface.OnShowListener,
++        DialogInterface.OnDismissListener{
++    private final String TAG = "EthConfDialog";
++    private static final boolean localLOGV = false;
++
++    /* This value comes from "wifi_ip_settings" resource array */
++    private static final int DHCP = 0;
++    private static final int STATIC_IP = 1;
++    private IpAssignment mIpAssignment = IpAssignment.DHCP;
++	private StaticIpConfiguration mStaticIpConfiguration = null;
++
++    private View mView;
++    private RadioButton mConTypeDhcp;
++    private RadioButton mConTypeManual;
++    private EditText mIpaddr;
++    private EditText mDns;
++    private EditText mGw;
++    //private EditText mMask;
++	private EditText mprefix;
++
++    private Context mContext;
++	private EthernetManager mEthManager;
++	private ConnectivityManager mCM;
++	
++    public EthernetDialog(Context context,EthernetManager EthManager,ConnectivityManager cm) {
++        super(context);
++        mContext = context;
++		mEthManager = EthManager;
++		mCM = cm;
++        buildDialogContent(context);
++        setOnShowListener(this);
++        setOnDismissListener(this);
++    }
++
++    public void onShow(DialogInterface dialog) {
++        if (localLOGV) Slog.d(TAG, "onShow");
++		UpdateInfo();
++        // soft keyboard pops up on the disabled EditText. Hide it.
++        InputMethodManager imm = (InputMethodManager)mContext.getSystemService(
++                Context.INPUT_METHOD_SERVICE);
++        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
++                InputMethodManager.HIDE_IMPLICIT_ONLY);
++    }
++
++    public void onDismiss(DialogInterface dialog) {
++        if (localLOGV) Slog.d(TAG, "onDismiss");
++    }
++
++	public void UpdateInfo() {
++		int enable = Settings.Global.getInt(mContext.getContentResolver(),Settings.Global.ETHERNET_ON,0);//add by hclydao
++		if(enable == EthernetManager.ETH_STATE_ENABLED) {
++		//if(mEthManager.isAvailable()) {
++			IpConfiguration ipinfo = mEthManager.getConfiguration();
++			if(ipinfo != null) {
++				if(ipinfo.ipAssignment == IpAssignment.DHCP) {
++					mConTypeDhcp.setChecked(true);
++		            mIpaddr.setEnabled(false);
++		            mDns.setEnabled(false);
++		            mGw.setEnabled(false);
++		            //mMask.setEnabled(true);
++					mprefix.setEnabled(false);
++					mDns.setText("");
++					mGw.setText("");
++					mprefix.setText("");
++					mIpaddr.setText("");
++					if(mCM != null) {
++						LinkProperties lp  = mCM.getLinkProperties(ConnectivityManager.TYPE_ETHERNET);
++						if(lp != null) {
++							mIpaddr.setText(formatIpAddresses(lp));
++						}
++					}
++				} else {
++					mConTypeManual.setChecked(true);
++		            mIpaddr.setEnabled(true);
++		            mDns.setEnabled(true);
++		            mGw.setEnabled(true);
++		            //mMask.setEnabled(true);
++					mprefix.setEnabled(true);
++					StaticIpConfiguration staticConfig = ipinfo.getStaticIpConfiguration();
++					if (staticConfig != null) {
++						if (staticConfig.ipAddress != null) {
++							mIpaddr.setText(staticConfig.ipAddress.getAddress().getHostAddress());
++		                    mprefix.setText(Integer.toString(staticConfig.ipAddress.getNetworkPrefixLength()));
++						}
++		                if (staticConfig.gateway != null) {
++		                    mGw.setText(staticConfig.gateway.getHostAddress());
++		                }
++		                Iterator<InetAddress> dnsIterator = staticConfig.dnsServers.iterator();
++		                if (dnsIterator.hasNext()) {
++		                    mDns.setText(dnsIterator.next().getHostAddress());
++		                }
++					}
++				}
++			}
++		}
++	}
++
++    public int buildDialogContent(Context context) {
++        this.setTitle(R.string.eth_config_title);
++        this.setView(mView = getLayoutInflater().inflate(R.layout.eth_configure, null));
++        mConTypeDhcp = (RadioButton) mView.findViewById(R.id.dhcp_radio);
++        mConTypeManual = (RadioButton) mView.findViewById(R.id.manual_radio);
++        mIpaddr = (EditText)mView.findViewById(R.id.ipaddr_edit);
++		mprefix = (EditText)mView.findViewById(R.id.prefix_edit);
++       // mMask = (EditText)mView.findViewById(R.id.netmask_edit);
++        mDns = (EditText)mView.findViewById(R.id.eth_dns_edit);
++        mGw = (EditText)mView.findViewById(R.id.eth_gw_edit);
++
++        mConTypeDhcp.setChecked(true);
++        mConTypeManual.setChecked(false);
++        mIpaddr.setEnabled(false);
++       // mMask.setEnabled(false);
++		mprefix.setEnabled(false);
++        mDns.setEnabled(false);
++        mGw.setEnabled(false);
++
++        mConTypeManual.setOnClickListener(new RadioButton.OnClickListener() {
++            public void onClick(View v) {
++                mIpaddr.setEnabled(true);
++                mDns.setEnabled(true);
++                mGw.setEnabled(true);
++                //mMask.setEnabled(true);
++				mprefix.setEnabled(true);
++				mIpAssignment = IpAssignment.STATIC;
++				if(TextUtils.isEmpty(mIpaddr.getText().toString()))
++					mIpaddr.setText("192.168.1.15");
++				if(TextUtils.isEmpty(mDns.getText().toString()))
++					mDns.setText("192.168.1.1");
++				if(TextUtils.isEmpty(mGw.getText().toString()))
++					mGw.setText("192.168.1.1");
++				if(TextUtils.isEmpty(mprefix.getText().toString()))
++					mprefix.setText("24");
++            }
++        });
++
++        mConTypeDhcp.setOnClickListener(new RadioButton.OnClickListener() {
++            public void onClick(View v) {
++                mIpaddr.setEnabled(false);
++                mDns.setEnabled(false);
++                mGw.setEnabled(false);
++                //mMask.setEnabled(false);
++				mprefix.setEnabled(false);
++				mIpAssignment = IpAssignment.DHCP;
++				mDns.setText("");
++				mGw.setText("");
++				mprefix.setText("");
++				mIpaddr.setText("");
++            }
++        });
++
++        this.setInverseBackgroundForced(true);
++        this.setButton(BUTTON_POSITIVE, context.getText(R.string.menu_save), this);
++        this.setButton(BUTTON_NEGATIVE, context.getText(R.string.menu_cancel), this);
++		UpdateInfo();
++		return 0;
++    }
++
++    private String formatIpAddresses(LinkProperties prop) {
++        if (prop == null) return null;
++        Iterator<InetAddress> iter = prop.getAllAddresses().iterator();
++        // If there are no entries, return null
++        if (!iter.hasNext()) return null;
++        // Concatenate all available addresses, comma separated
++        String addresses = "";
++        while (iter.hasNext()) {
++            addresses += iter.next().getHostAddress();
++            if (iter.hasNext()) addresses += "\n";
++        }
++        return addresses;
++    }
++
++    private Inet4Address getIPv4Address(String text) {
++        try {
++            return (Inet4Address) NetworkUtils.numericToInetAddress(text);
++        } catch (IllegalArgumentException|ClassCastException e) {
++            return null;
++        }
++    }
++
++    private int validateIpConfigFields(StaticIpConfiguration staticIpConfiguration) {
++
++        String ipAddr = mIpaddr.getText().toString();
++
++        Inet4Address inetAddr = getIPv4Address(ipAddr);
++        if (inetAddr == null) {
++            return 2;
++        }
++/*
++		String netmask = mMask.getText().toString();
++        if (TextUtils.isEmpty(netmask)) 
++			return 11;
++		Inet4Address netmas = getIPv4Address(netmask);
++        if (netmas == null) {
++            return 12;
++        }
++		int nmask = NetworkUtils.inetAddressToInt(netmas);
++		int prefixlength = NetworkUtils.netmaskIntToPrefixLength(nmask);
++*/
++        int networkPrefixLength = -1;
++        try {
++            networkPrefixLength = Integer.parseInt(mprefix.getText().toString());
++            if (networkPrefixLength < 0 || networkPrefixLength > 32) {
++                return 3;
++            }
++            staticIpConfiguration.ipAddress = new LinkAddress(inetAddr, networkPrefixLength);
++        } catch (NumberFormatException e) {
++            // Set the hint as default after user types in ip address
++        }
++
++        String gateway = mGw.getText().toString();
++
++        InetAddress gatewayAddr = getIPv4Address(gateway);
++        if (gatewayAddr == null) {
++            return 4;
++        }
++        staticIpConfiguration.gateway = gatewayAddr;
++
++        String dns = mDns.getText().toString();
++        InetAddress dnsAddr = null;
++
++		dnsAddr = getIPv4Address(dns);
++		if (dnsAddr == null) {
++		    return 5;
++		}
++
++		staticIpConfiguration.dnsServers.add(dnsAddr);
++
++        return 0;
++    }
++
++    private void handle_saveconf() {
++        if (mConTypeDhcp.isChecked()) {
++			Slog.i(TAG,"mode dhcp");
++			mEthManager.setConfiguration(new IpConfiguration(mIpAssignment, ProxySettings.NONE,
++                                null, null));
++        } else {
++            Slog.i(TAG,"mode static ip");
++			if(isIpAddress(mIpaddr.getText().toString())
++				&& isIpAddress(mGw.getText().toString())
++				&& isIpAddress(mDns.getText().toString())) {
++				
++				if(TextUtils.isEmpty(mIpaddr.getText().toString())
++					|| TextUtils.isEmpty(mprefix.getText().toString())
++					|| TextUtils.isEmpty(mGw.getText().toString())
++					|| TextUtils.isEmpty(mDns.getText().toString())) {
++					Toast.makeText(mContext, R.string.eth_settings_empty, Toast.LENGTH_LONG).show();
++		            return ;
++				}
++
++				mStaticIpConfiguration = new StaticIpConfiguration();
++		        int result = validateIpConfigFields(mStaticIpConfiguration);
++		        if (result != 0) {
++					Toast.makeText(mContext, " error id is " + result, Toast.LENGTH_LONG).show();
++		            return ;
++		        } else {
++					mEthManager.setConfiguration( new IpConfiguration(mIpAssignment, ProxySettings.NONE,
++		                                mStaticIpConfiguration, null));
++				}
++			} else
++				Toast.makeText(mContext, R.string.eth_settings_error, Toast.LENGTH_LONG).show();
++		}
++    }
++
++    private boolean isIpAddress(String value) {
++        int start = 0;
++        int end = value.indexOf('.');
++        int numBlocks = 0;
++
++        while (start < value.length()) {
++            if (end == -1) {
++                end = value.length();
++            }
++
++            try {
++                int block = Integer.parseInt(value.substring(start, end));
++                if ((block > 255) || (block < 0)) {
++                        return false;
++                }
++            } catch (NumberFormatException e) {
++                    return false;
++            }
++
++            numBlocks++;
++
++            start = end + 1;
++            end = value.indexOf('.', start);
++        }
++        return numBlocks == 4;
++    }
++
++    public void onClick(DialogInterface dialog, int which) {
++        switch (which) {
++            case BUTTON_POSITIVE:
++                handle_saveconf();
++                break;
++            case BUTTON_NEGATIVE:
++                //Don't need to do anything
++                break;
++            default:
++        }
++    }
++
++}
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/ethernet/EthernetEnabler.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/ethernet/EthernetEnabler.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/ethernet/EthernetEnabler.java	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/ethernet/EthernetEnabler.java	2016-03-23 19:37:37.580569104 +0800
+@@ -0,0 +1,121 @@
++/*
++ * Copyright (C) 2010 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++/*
++ * developed by hclydao@gmail.com
++ */
++package com.android.settings.ethernet;
++
++import android.content.ContentResolver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.os.Bundle;
++import android.os.RemoteException;
++import android.os.SystemProperties;
++import android.preference.ListPreference;
++import android.preference.Preference;
++import android.preference.PreferenceScreen;
++import android.provider.Settings;
++import android.provider.Settings.SettingNotFoundException;
++import android.util.AttributeSet;
++import android.util.Log;
++import android.view.View;
++import android.preference.CheckBoxPreference;
++
++import java.util.ArrayList;
++import com.android.settings.SettingsPreferenceFragment;
++import com.android.settings.R;
++import com.android.settings.widget.SwitchBar;
++import com.android.settings.SettingsActivity;
++import android.widget.Switch;
++import android.util.Slog;
++import android.net.EthernetManager;
++import android.provider.Settings;
++
++public class EthernetEnabler implements SwitchBar.OnSwitchChangeListener {
++	private final String TAG = "EthernetEnabler";
++    private Context mContext;
++    private SwitchBar mSwitchBar;
++	private boolean mListeningToOnSwitchChange = false;
++	private EthernetDialog mEthDialog = null;
++	private EthernetManager mEthManager;
++    public void setConfigDialog(EthernetDialog Dialog) {
++        mEthDialog = Dialog;
++    }
++
++    public EthernetEnabler(Context context, SwitchBar switchBar,EthernetManager ethernetManager) {
++        mContext = context;
++        mSwitchBar = switchBar;
++		mEthManager = ethernetManager;
++        setupSwitchBar();
++    }
++
++    public void resume(Context context) {
++        mContext = context;
++        if (!mListeningToOnSwitchChange) {
++            mSwitchBar.addOnSwitchChangeListener(this);
++            mListeningToOnSwitchChange = true;
++        }
++    }
++
++    public void pause() {
++        if (mListeningToOnSwitchChange) {
++            mSwitchBar.removeOnSwitchChangeListener(this);
++            mListeningToOnSwitchChange = false;
++        }
++    }
++
++    public void setupSwitchBar() {
++        if (!mListeningToOnSwitchChange) {
++            mSwitchBar.addOnSwitchChangeListener(this);
++            mListeningToOnSwitchChange = true;
++        }
++        mSwitchBar.show();
++		int enable = Settings.Global.getInt(mContext.getContentResolver(),Settings.Global.ETHERNET_ON,0);//add by hclydao
++		if(enable == EthernetManager.ETH_STATE_ENABLED) {
++			mSwitchBar.setChecked(true);
++		} else {
++			mSwitchBar.setChecked(false);
++		}
++    }
++
++    public void teardownSwitchBar() {
++        if (mListeningToOnSwitchChange) {
++            mSwitchBar.removeOnSwitchChangeListener(this);
++            mListeningToOnSwitchChange = false;
++        }
++        mSwitchBar.hide();
++    }
++
++    @Override
++    public void onSwitchChanged(Switch switchView, boolean isChecked) {
++		if(isChecked) {
++			//if(mEthDialog != null)
++				//mEthDialog.show();
++		} else {
++			if(mEthManager != null)
++				mEthManager.stop();	
++		}
++
++		Settings.Global.putInt(mContext.getContentResolver(), Settings.Global.ETHERNET_ON,
++				isChecked ? EthernetManager.ETH_STATE_ENABLED : EthernetManager.ETH_STATE_DISABLED);
++
++		if(isChecked)
++			if(mEthManager != null)
++				mEthManager.start();
++    }
++}
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/ethernet/EthernetSettings.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/ethernet/EthernetSettings.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/ethernet/EthernetSettings.java	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/ethernet/EthernetSettings.java	2016-03-23 19:54:24.676593170 +0800
+@@ -0,0 +1,134 @@
++/*
++ * Copyright (C) 2010 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++/*
++ * developed by hclydao@gmail.com
++ */
++
++package com.android.settings.ethernet;
++
++import android.content.ContentResolver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.os.Bundle;
++import android.os.RemoteException;
++import android.os.SystemProperties;
++import android.preference.ListPreference;
++import android.preference.Preference;
++import android.preference.PreferenceScreen;
++import android.provider.Settings;
++import android.provider.Settings.SettingNotFoundException;
++import android.util.AttributeSet;
++import android.util.Log;
++import android.view.View;
++import android.preference.CheckBoxPreference;
++
++import java.util.ArrayList;
++import com.android.settings.SettingsPreferenceFragment;
++import com.android.settings.R;
++import com.android.settings.widget.SwitchBar;
++import com.android.settings.SettingsActivity;
++import android.widget.Switch;
++import android.app.Activity;
++import android.app.ActivityManager;
++import android.net.EthernetManager;
++import android.content.Context;
++import android.net.ConnectivityManager;
++import android.util.Slog;
++import android.widget.Toast;
++import android.os.Looper;
++
++public class EthernetSettings extends SettingsPreferenceFragment implements
++        Preference.OnPreferenceChangeListener{
++	private static final String TAG = "EthernetSettings";
++	private EthernetEnabler mEthEnabler;
++    private static final String KEY_CONF_ETH = "ETHERNET_CONFIG";
++	private EthernetDialog mEthDialog = null;
++	private Preference mEthConfigPref;
++	private ConnectivityManager mCM;
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        addPreferencesFromResource(R.xml.ethernet_settings);
++        final PreferenceScreen preferenceScreen = getPreferenceScreen();
++        mEthConfigPref = preferenceScreen.findPreference(KEY_CONF_ETH);
++    }
++
++    @Override
++    public void onStart() {
++        super.onStart();
++        // On/off switch is hidden for Setup Wizard (returns null)
++        mEthEnabler = createEthernetEnabler();
++		mCM = (ConnectivityManager)getActivity().getSystemService(
++		        Context.CONNECTIVITY_SERVICE);
++		mEthDialog = new EthernetDialog(getActivity(),(EthernetManager)getSystemService(Context.ETHERNET_SERVICE),mCM);
++		mEthEnabler.setConfigDialog(mEthDialog);
++    }
++
++    @Override
++    public void onResume() {
++        final Activity activity = getActivity();
++        super.onResume();
++        if (mEthEnabler != null) {
++            mEthEnabler.resume(activity);
++        }
++    }
++
++    @Override
++    public void onPause() {
++        super.onPause();
++        if (mEthEnabler != null) {
++            mEthEnabler.pause();
++        }
++    }
++
++    @Override
++    public void onDestroyView() {
++        super.onDestroyView();
++
++        if (mEthEnabler != null) {
++            mEthEnabler.teardownSwitchBar();
++        }
++    }
++
++    /**
++     * @return new WifiEnabler or null (as overridden by WifiSettingsForSetupWizard)
++     */
++    /* package */ 
++	EthernetEnabler createEthernetEnabler() {
++        final SettingsActivity activity = (SettingsActivity) getActivity();
++        return new EthernetEnabler(activity, activity.getSwitchBar(),(EthernetManager)getSystemService(Context.ETHERNET_SERVICE));
++    }
++
++    public boolean onPreferenceChange(Preference preference, Object objValue) {
++        return true;
++    }
++
++    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
++        if (preference == mEthConfigPref) {
++			final SettingsActivity activity = (SettingsActivity) getActivity();
++			if(activity.getSwitchBar().isChecked()) {
++				if(mEthDialog != null)
++		        	mEthDialog.show();
++			} else {
++				Toast.makeText(getActivity(), "please turn on ethernet", Toast.LENGTH_LONG).show();
++			}
++        }
++        return false;
++    }
++}
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/HDMIScreenZoomPreference.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/HDMIScreenZoomPreference.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/HDMIScreenZoomPreference.java	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/HDMIScreenZoomPreference.java	2015-07-28 11:50:39.000000000 +0800
+@@ -0,0 +1,167 @@
++/*
++ * Copyright (C) 2008 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++/*
++ * Developed by swpark@nexell.co.kr
++ */
++
++package com.android.settings;
++
++import android.content.ContentResolver;
++import android.content.Context;
++import android.database.ContentObserver;
++import android.os.Bundle;
++import android.os.Handler;
++import android.os.IPowerManager;
++import android.os.Parcel;
++import android.os.Parcelable;
++import android.os.PowerManager;
++import android.os.RemoteException;
++import android.os.ServiceManager;
++import android.os.SystemProperties;
++import android.preference.SeekBarDialogPreference;
++import android.provider.Settings;
++import android.provider.Settings.SettingNotFoundException;
++import android.util.AttributeSet;
++import android.view.View;
++import android.view.Display;
++import android.view.IWindowManager;
++import android.widget.CompoundButton;
++import android.widget.SeekBar;
++import android.util.Log;
++import android.graphics.Point;
++
++public class HDMIScreenZoomPreference extends SeekBarDialogPreference implements SeekBar.OnSeekBarChangeListener {
++    private static final String LOG_TAG = "HDMIScreenZoomPreference";
++
++    private SeekBar mSeekBar;
++
++    private int mOldZoom;
++    private int mCurZoom = -1;
++
++    private int mWidth = 1920;
++    private int mHeight = 1080;
++
++    private IWindowManager mWm;
++
++    private static final int SEEK_BAR_RANGE = 10;
++    private static final String HDMI_SCALE_PROPERTY = "hwc.scale";
++
++    public HDMIScreenZoomPreference(Context context, AttributeSet attrs) {
++        super(context, attrs);
++
++        mWm = IWindowManager.Stub.asInterface(ServiceManager.checkService(
++                        Context.WINDOW_SERVICE));
++        if (mWm == null) {
++            //System.err.println(NO_SYSTEM_ERROR_CODE);
++            //throw new AndroidException("Can't connect to window manager; is the system running?");
++            Log.e(LOG_TAG, "Can't get WindowManager Handle!!!");
++        }
++
++        setDialogLayoutResource(R.layout.preference_dialog_hdmi_screen_zoom);
++        // TODO : get icon
++        setDialogIcon(R.drawable.ic_settings_display);
++
++
++        Point initialSize = new Point();
++        Point baseSize = new Point();
++        try {
++            mWm.getInitialDisplaySize(Display.DEFAULT_DISPLAY, initialSize);
++            mWm.getBaseDisplaySize(Display.DEFAULT_DISPLAY, baseSize);
++            System.out.println("Physical size: " + initialSize.x + "x" + initialSize.y);
++            if (!initialSize.equals(baseSize)) {
++                System.out.println("Override size: " + baseSize.x + "x" + baseSize.y);
++            }
++            mWidth = initialSize.x;
++            mHeight = initialSize.y;
++            Log.d("HDMIScreenZoom", "Resolution ===> " + mWidth + "x" + mHeight);
++        } catch (RemoteException e) {
++        }
++    }
++
++    @Override
++    protected void onBindDialogView(View view) {
++        super.onBindDialogView(view);
++
++        mSeekBar = getSeekBar(view);
++        mSeekBar.setMax(SEEK_BAR_RANGE);
++        mOldZoom = getZoom();
++        mSeekBar.setProgress(mOldZoom);
++
++        mSeekBar.setEnabled(true);
++        mSeekBar.setOnSeekBarChangeListener(this);
++    }
++
++    @Override
++    protected void onDialogClosed(boolean positiveResult) {
++        super.onDialogClosed(positiveResult);
++
++        Log.d(LOG_TAG, "Dialog close...");
++        //if (!positiveResult) {
++            //setZoom(mOldZoom);
++        //}
++        if (positiveResult)
++            setZoom(mCurZoom);
++        else
++            mCurZoom = mOldZoom;
++    }
++
++    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
++        //setZom(progress);
++    }
++
++    public void onStartTrackingTouch(SeekBar seekBar) {
++        // NA
++    }
++
++    public void onStopTrackingTouch(SeekBar seekBar) {
++        // NA
++        //setZoom(seekBar.getProgress());
++        int progress = seekBar.getProgress();
++        if (progress != mCurZoom)
++            mCurZoom = progress;
++    }
++
++    private void setZoom(int zoom) {
++        //if (zoom != mCurZoom) {
++            //mCurZoom = zoom;
++            SystemProperties.set(HDMI_SCALE_PROPERTY, Integer.toString(mCurZoom));
++            Settings.System.putInt(getContext().getContentResolver(), HDMI_SCALE_PROPERTY, mCurZoom);
++            // this is test code
++            try {
++                int scaledWidth;
++                int scaledHeight;
++                scaledWidth = mWidth - (mWidth/(SEEK_BAR_RANGE*5))*(SEEK_BAR_RANGE - mCurZoom);
++                if ((scaledWidth % 2) != 0)
++                    scaledWidth++;
++                scaledHeight = mHeight - (mHeight/(SEEK_BAR_RANGE*5))*(SEEK_BAR_RANGE - mCurZoom);
++                if ((scaledHeight % 2) != 0)
++                    scaledHeight++;
++                Log.d(LOG_TAG, "scaled Resolution: " + scaledWidth + "x" + scaledHeight);
++                mWm.setForcedDisplaySize(0, scaledWidth, scaledHeight);
++            } catch (RemoteException e) {
++                Log.e(LOG_TAG, "Failed to setForcedDisplaySize!!!");
++            }
++            Log.d(LOG_TAG, "hwc.scale set: " + mCurZoom);
++        //}
++    }
++
++    private int getZoom() {
++        String scaleVal = SystemProperties.get(HDMI_SCALE_PROPERTY, "3");
++        Log.d(LOG_TAG, "hwc.scale value: " + scaleVal);
++        return Integer.parseInt(scaleVal);
++    }
++}
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/HDMISettings.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/HDMISettings.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/HDMISettings.java	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/HDMISettings.java	2016-01-29 16:44:16.753555367 +0800
+@@ -0,0 +1,149 @@
++/*
++ * Copyright (C) 2010 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++/*
++ * developed by swpark@nexell.co.kr
++ */
++
++package com.android.settings;
++
++import android.content.ContentResolver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.os.Bundle;
++import android.os.RemoteException;
++import android.os.SystemProperties;
++import android.preference.ListPreference;
++import android.preference.Preference;
++import android.preference.PreferenceScreen;
++import android.provider.Settings;
++import android.provider.Settings.SettingNotFoundException;
++import android.util.AttributeSet;
++import android.util.Log;
++import android.view.View;
++import android.preference.CheckBoxPreference;
++
++import java.util.ArrayList;
++
++public class HDMISettings extends SettingsPreferenceFragment implements
++        Preference.OnPreferenceChangeListener {
++    private static final String LOG_TAG = "HDMISettings";
++
++    private static final String HDMI_RESOLUTION_PROPERTY = "hwc.resolution";
++    private static final String HDMI_MODE_PROPERTY = "hwc.hdmimode";
++    private static final String HDMI_SCREEN_DOWNSIZING_PROPERTY = "hwc.screendownsizing";
++
++    private static final String HDMI_MODE_SECONDARY = "secondary";
++    private static final String HDMI_MODE_PRIMARY = "primary";
++
++    private static final String KEY_HDMI_RESOLUTION = "hdmi_resolution";
++    private static final String KEY_HDMI_SCREEN_ZOOM = "hdmi_screen_zoom";
++    private static final String KEY_ENABLE_HDMI_SCREEN_DOWNSIZING = "enable_hdmi_screen_downsizing";
++
++    private ListPreference mHDMIResolutionPreference;
++    private CheckBoxPreference mEnableHDMIScreenDownsizingPreference;
++    private HDMIScreenZoomPreference mHDMIScreenZoomPreference;
++
++    private int mCurResolution;
++    private int mScreenDownsizing;
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++
++        addPreferencesFromResource(R.xml.hdmi_settings);
++
++        mHDMIResolutionPreference = (ListPreference)findPreference(KEY_HDMI_RESOLUTION);
++        mEnableHDMIScreenDownsizingPreference = (CheckBoxPreference)findPreference(KEY_ENABLE_HDMI_SCREEN_DOWNSIZING);
++        mHDMIScreenZoomPreference = (HDMIScreenZoomPreference)findPreference(KEY_HDMI_SCREEN_ZOOM);
++
++        mCurResolution = getResolution();
++        mScreenDownsizing = getScreenDownsizing();
++        mHDMIResolutionPreference.setValue(String.valueOf(mCurResolution));
++        mHDMIResolutionPreference.setOnPreferenceChangeListener(this);
++
++        if (HDMI_MODE_PRIMARY.equals(getHDMIMode())) {
++            mHDMIResolutionPreference.setEnabled(false);
++            mEnableHDMIScreenDownsizingPreference.setEnabled(false);
++            mHDMIScreenZoomPreference.setEnabled(true);
++        } else {
++            mHDMIResolutionPreference.setEnabled(true);
++            mEnableHDMIScreenDownsizingPreference.setEnabled(true);
++            if (mScreenDownsizing > 0)
++                mEnableHDMIScreenDownsizingPreference.setChecked(true);
++            else
++                mEnableHDMIScreenDownsizingPreference.setChecked(false);
++            mHDMIScreenZoomPreference.setEnabled(false);
++        }
++    }
++
++    public boolean onPreferenceChange(Preference preference, Object objValue) {
++        final String key = preference.getKey();
++        if (KEY_HDMI_RESOLUTION.equals(key)) {
++            int value = Integer.parseInt((String)objValue);
++            setResolution(value);
++        }
++        return true;
++    }
++
++    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
++        if (preference == mEnableHDMIScreenDownsizingPreference) {
++            if (mEnableHDMIScreenDownsizingPreference.isChecked()) {
++                setScreenDownsizing(1);
++            } else {
++                setScreenDownsizing(0);
++            }
++        }
++        return false;
++    }
++
++    private void setResolution(int resolution) {
++        if (resolution != mCurResolution) {
++            mCurResolution = resolution;
++            SystemProperties.set(HDMI_RESOLUTION_PROPERTY, Integer.toString(mCurResolution));
++            Settings.System.putInt(mHDMIResolutionPreference.getContext().getContentResolver(), HDMI_RESOLUTION_PROPERTY, mCurResolution);
++        }
++    }
++
++    private void setScreenDownsizing(int downsizing) {
++        if (downsizing != mScreenDownsizing) {
++            Log.d(LOG_TAG, "setScreenDownsizing " + downsizing);
++            mScreenDownsizing = downsizing;
++            SystemProperties.set(HDMI_SCREEN_DOWNSIZING_PROPERTY, Integer.toString(mScreenDownsizing));
++            Settings.System.putInt(mEnableHDMIScreenDownsizingPreference.getContext().getContentResolver(),
++                    HDMI_SCREEN_DOWNSIZING_PROPERTY, mScreenDownsizing);
++        }
++    }
++
++    private int getResolution() {
++        String resolutionVal = SystemProperties.get(HDMI_RESOLUTION_PROPERTY, "18");
++        Log.d(LOG_TAG, "hwc.resolution value: " + resolutionVal);
++        return Integer.parseInt(resolutionVal);
++    }
++
++    private String getHDMIMode() {
++        String hdmiMode = SystemProperties.get(HDMI_MODE_PROPERTY, "secondary");
++        Log.d(LOG_TAG, "hwc.hdmimode: " + hdmiMode);
++        return hdmiMode;
++    }
++
++    private int getScreenDownsizing() {
++         String screenDownsizing = SystemProperties.get(HDMI_SCREEN_DOWNSIZING_PROPERTY, "0");
++         Log.d(LOG_TAG, "hwc.screenDownsizing: " + screenDownsizing);
++         return Integer.parseInt(screenDownsizing);
++    }
++}
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/SettingsActivity.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/SettingsActivity.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/SettingsActivity.java	2015-09-11 08:56:43.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/SettingsActivity.java	2016-03-21 16:53:39.102538282 +0800
+@@ -121,6 +121,9 @@
+ import java.util.List;
+ import java.util.Set;
+ 
++import com.android.settings.ethernet.EthernetSettings;//add by hclydao
++import com.android.settings.HDMISettings;
++
+ import static com.android.settings.dashboard.DashboardTile.TILE_ID_UNDEFINED;
+ 
+ public class SettingsActivity extends Activity
+@@ -216,12 +219,14 @@
+             R.id.wireless_section,
+             R.id.wifi_settings,
+             R.id.bluetooth_settings,
++			R.id.ethernet_settings,//add by hclydao
+             R.id.data_usage_settings,
+             R.id.sim_settings,
+             R.id.wireless_settings,
+             R.id.device_section,
+             R.id.notification_settings,
+             R.id.display_settings,
++			R.id.hdmi_settings,//add by hclydao
+             R.id.storage_settings,
+             R.id.application_settings,
+             R.id.battery_settings,
+@@ -247,6 +252,8 @@
+             AdvancedWifiSettings.class.getName(),
+             SavedAccessPointsWifiSettings.class.getName(),
+             BluetoothSettings.class.getName(),
++			EthernetSettings.class.getName(),//add by hclydao
++			HDMISettings.class.getName(),//add by hclydao
+             SimSettings.class.getName(),
+             TetherSettings.class.getName(),
+             WifiP2pSettings.class.getName(),
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/Settings.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/Settings.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/packages/apps/Settings/src/com/android/settings/Settings.java	2015-09-11 08:56:43.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/packages/apps/Settings/src/com/android/settings/Settings.java	2016-03-21 16:53:30.674538206 +0800
+@@ -28,6 +28,7 @@
+     */
+     public static class BluetoothSettingsActivity extends SettingsActivity { /* empty */ }
+     public static class WirelessSettingsActivity extends SettingsActivity { /* empty */ }
++    public static class EthernetSettingsActivity extends SettingsActivity { /* empty */ } //add by hclydao
+     public static class SimSettingsActivity extends SettingsActivity { /* empty */ }
+     public static class TetherSettingsActivity extends SettingsActivity { /* empty */ }
+     public static class VpnSettingsActivity extends SettingsActivity { /* empty */ }
+@@ -44,6 +45,7 @@
+     public static class UserDictionarySettingsActivity extends SettingsActivity { /* empty */ }
+     public static class HomeSettingsActivity extends SettingsActivity { /* empty */ }
+     public static class DisplaySettingsActivity extends SettingsActivity { /* empty */ }
++    public static class HDMISettingsActivity extends SettingsActivity { /* empty */ } //add by hclydao
+     public static class DeviceInfoSettingsActivity extends SettingsActivity { /* empty */ }
+     public static class ApplicationSettingsActivity extends SettingsActivity { /* empty */ }
+     public static class ManageApplicationsActivity extends SettingsActivity { /* empty */ }

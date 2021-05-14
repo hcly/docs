@@ -1,0 +1,553 @@
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/api/current.txt /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/api/current.txt
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/api/current.txt	2015-10-21 16:32:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/api/current.txt	2016-03-23 15:19:39.668199227 +0800
+@@ -25272,6 +25272,7 @@
+     field public static final java.lang.String DEBUG_APP = "debug_app";
+     field public static final java.lang.String DEVELOPMENT_SETTINGS_ENABLED = "development_settings_enabled";
+     field public static final java.lang.String DEVICE_PROVISIONED = "device_provisioned";
++    field public static final java.lang.String ETHERNET_ON = "ethernet_on";
+     field public static final java.lang.String HTTP_PROXY = "http_proxy";
+     field public static final deprecated java.lang.String INSTALL_NON_MARKET_APPS = "install_non_market_apps";
+     field public static final java.lang.String MODE_RINGER = "mode_ringer";
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/api/system-current.txt /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/api/system-current.txt
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/api/system-current.txt	2015-10-21 16:32:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/api/system-current.txt	2016-03-23 15:20:18.932200165 +0800
+@@ -26864,6 +26864,7 @@
+     field public static final java.lang.String DEBUG_APP = "debug_app";
+     field public static final java.lang.String DEVELOPMENT_SETTINGS_ENABLED = "development_settings_enabled";
+     field public static final java.lang.String DEVICE_PROVISIONED = "device_provisioned";
++    field public static final java.lang.String ETHERNET_ON = "ethernet_on";
+     field public static final java.lang.String HTTP_PROXY = "http_proxy";
+     field public static final deprecated java.lang.String INSTALL_NON_MARKET_APPS = "install_non_market_apps";
+     field public static final java.lang.String MODE_RINGER = "mode_ringer";
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/core/java/android/net/EthernetManager.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/core/java/android/net/EthernetManager.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/core/java/android/net/EthernetManager.java	2015-09-11 08:54:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/core/java/android/net/EthernetManager.java	2016-03-23 17:39:09.392399239 +0800
+@@ -35,6 +35,10 @@
+     private static final String TAG = "EthernetManager";
+     private static final int MSG_AVAILABILITY_CHANGED = 1000;
+ 
++    public static final int ETH_STATE_UNKNOWN = 0;
++    public static final int ETH_STATE_DISABLED = 1;
++    public static final int ETH_STATE_ENABLED = 2;
++
+     private final Context mContext;
+     private final IEthernetManager mService;
+     private final Handler mHandler = new Handler() {
+@@ -102,6 +106,19 @@
+         }
+     }
+ 
++    public void start() {
++        try {
++            mService.Trackstart();
++        } catch (NullPointerException | RemoteException e) {
++        }
++    }
++
++    public void stop() {
++        try {
++            mService.Trackstop();
++        } catch (NullPointerException | RemoteException e) {
++        }
++    }
+     /**
+      * Indicates whether the system currently has one or more
+      * Ethernet interfaces.
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/core/java/android/net/IEthernetManager.aidl /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/core/java/android/net/IEthernetManager.aidl
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/core/java/android/net/IEthernetManager.aidl	2015-09-11 08:54:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/core/java/android/net/IEthernetManager.aidl	2016-03-23 17:38:41.208398565 +0800
+@@ -31,4 +31,6 @@
+     boolean isAvailable();
+     void addListener(in IEthernetServiceListener listener);
+     void removeListener(in IEthernetServiceListener listener);
++	void Trackstart();//add by hclydao
++	void Trackstop();
+ }
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/core/java/android/provider/Settings.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/core/java/android/provider/Settings.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/core/java/android/provider/Settings.java	2015-09-18 11:39:06.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/core/java/android/provider/Settings.java	2016-03-23 14:33:42.520133339 +0800
+@@ -5827,6 +5827,11 @@
+        public static final String WIFI_ON = "wifi_on";
+ 
+        /**
++        * Whether the ethernet should be on.  Only the ethernet service should touch this.
++        */
++       public static final String ETHERNET_ON = "ethernet_on";//add by hclydao
++
++       /**
+         * Setting to allow scans to be enabled even wifi is turned off for connectivity.
+         * @hide
+         */
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/data/etc/platform.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/data/etc/platform.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/data/etc/platform.xml	2015-09-11 08:54:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/data/etc/platform.xml	2016-03-17 10:12:15.303308853 +0800
+@@ -65,6 +65,7 @@
+     <permission name="android.permission.WRITE_EXTERNAL_STORAGE" >
+         <group gid="sdcard_r" />
+         <group gid="sdcard_rw" />
++		<group gid="media_rw" /> <!--add by hclydao for media storage-->
+     </permission>
+ 
+     <permission name="android.permission.ACCESS_ALL_EXTERNAL_STORAGE" >
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SettingsProvider/res/values/defaults.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SettingsProvider/res/values/defaults.xml	2015-09-11 08:54:36.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SettingsProvider/res/values/defaults.xml	2016-01-28 19:37:17.261740254 +0800
+@@ -18,10 +18,12 @@
+ -->
+ <resources>
+     <bool name="def_dim_screen">true</bool>
+-    <integer name="def_screen_off_timeout">60000</integer>
++    <integer name="def_screen_off_timeout">-1</integer><!--modify by hclydao 60000 to -1-->
+     <integer name="def_sleep_timeout">-1</integer>
+     <bool name="def_airplane_mode_on">false</bool>
+     <bool name="def_theater_mode_on">false</bool>
++	<!--add by hclydao for wifi ! turn off captive portal detection-->
++	<integer name="captive_portal_detection_enabled">0</integer>
+     <!-- Comma-separated list of bluetooth, wifi, and cell. -->
+     <string name="def_airplane_mode_radios" translatable="false">cell,bluetooth,wifi,nfc,wimax</string>
+     <string name="airplane_mode_toggleable_radios" translatable="false">bluetooth,wifi,nfc</string>
+@@ -29,7 +31,7 @@
+     <bool name="def_auto_time_zone">true</bool>
+     <bool name="def_accelerometer_rotation">true</bool>
+     <!-- Default screen brightness, from 0 to 255.  102 is 40%. -->
+-    <integer name="def_screen_brightness">102</integer>
++    <integer name="def_screen_brightness">255</integer><!--modify 102 to 255 by hclydao-->
+     <bool name="def_screen_brightness_automatic_mode">false</bool>
+     <fraction name="def_window_animation_scale">100%</fraction>
+     <fraction name="def_window_transition_scale">100%</fraction>
+@@ -77,8 +79,10 @@
+     <string name="def_unlock_sound" translatable="false">/system/media/audio/ui/Unlock.ogg</string>
+     <string name="def_trusted_sound" translatable="false">/system/media/audio/ui/Trusted.ogg</string>
+     <string name="def_wireless_charging_started_sound" translatable="false">/system/media/audio/ui/WirelessChargingStarted.ogg</string>
+-
++<!-- //modify by hclydao
+     <bool name="def_lockscreen_disabled">false</bool>
++-->
++	<bool name="def_lockscreen_disabled">true</bool>
+     <bool name="def_device_provisioned">false</bool>
+     <integer name="def_dock_audio_media_enabled">1</integer>
+ 
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java	2015-09-11 08:54:36.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java	2016-01-25 14:33:11.956903273 +0800
+@@ -2643,6 +2643,8 @@
+             loadBooleanSetting(stmt, Settings.Global.GUEST_USER_ENABLED,
+                     R.bool.def_guest_user_enabled);
+             loadSetting(stmt, Settings.Global.ENHANCED_4G_MODE_ENABLED, ImsConfig.FeatureValueConstants.ON);
++			//add by hclydao turn off captive portal detection
++			loadIntegerSetting(stmt, Settings.Global.CAPTIVE_PORTAL_DETECTION_ENABLED, R.integer.captive_portal_detection_enabled);
+             // --- New global settings start here
+         } finally {
+             if (stmt != null) stmt.close();
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/drawable/ethernet_connected.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/drawable/ethernet_connected.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/drawable/ethernet_connected.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/drawable/ethernet_connected.png	2012-11-08 01:46:28.000000000 +0800
+@@ -0,0 +1,7 @@
++‰PNG
++
++   IHDR         Äé…c   sRGB ®Îé   bKGD ÿ ÿ ÿ ½§“   	pHYs     šœ   tIMEÛ
++$‹•  çIDATHÇí•¿oÓPÇ?ÏM¤$•†–HˆB‚–PX™ï-E…¿V`BŒX¨Rn@Bbë Tº B
++…6jKT?'5íØ·Ø>}ï¾¾ï½»ÿŠ™, y,åÈûQUÏö?
++ƒj­V+3ƒµv*ü]ÈSñ‡îS:½ÀaBB8#ÅYÎº6œ•¤°µû—‰ Ëõ;XãHD¤‘@ú˜x÷ö3œIş“]¿ë']¡sğv€ù»/†0$	Y›k­ıDlMf4	ÀZw…Ş~—ÿ.Ö`¨xG©œ*_ØKæ%´xØë{¬~»¾R¿ß')Í|YÜ>9W©N<Œ1”½i&'N÷¡ÕqN {-ßXxXM¾›$ÔØŸÖÚ	°'ªzıosí /v"¶$"ÏS+Ùs›‰ÑEïğ@ó´“h­½˜JòÛmq¡~‹¿3Ç`(™)f
++Í>¬’G0É{ y~òv–¸¶µv>?xÖÏ&ğ&qzDdhd i¨êF$ö+pOU—‡çç ´–‘ à•ˆ,D|ûAU©r5s¬•ğHDÚ@1PäxÒ^Éu„#q.’ãĞN½~ƒ~ÔFÌ@ØUu5æª6ªêøoãÚ|¦†]yË    IEND®B`‚
+\ æ–‡ä»¶å°¾æ²¡æœ‰ newline å­—ç¬¦
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/drawable/ethernet_connecting.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/drawable/ethernet_connecting.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/drawable/ethernet_connecting.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/drawable/ethernet_connecting.png	2012-11-08 01:46:28.000000000 +0800
+@@ -0,0 +1,5 @@
++‰PNG
++
++   IHDR         Äé…c   sRGB ®Îé   bKGD ÿ ÿ ÿ ½§“   	pHYs     šœ   tIMEÙ	*·Bd  DIDATHÇí•KlTUÇçsï¼gh)™¶ŠÔPby…\4`Ÿ_˜ 1„5]‘D•…Æ×’hbLÄ0‘‘DPIZ 2ÓéÌÜ;÷ÏÅLØHÜ¿äææŞs¾ïÿ=Îÿà¿bêV69©%›lİ?@0R‚`€Dó]â€ê@¨!:Ê¹ÏÊĞš»njvb ›ï¼+³oïşLK.X«9ªBaÍïıçxåõ=Ø‰¢;•ä­\çeslÙ¼‘\®ßw‰"ƒ4aàQ¯*ªeK÷ân6lx-P—Iosk ^ˆö±ìÙóô_"™N‚kŒñ¸zåÏlZÏ“O­…  Bf(ï¶¤Ee¹±H[IGa‘ÑFCk¾y:Ñ®!ß–b~k''OüŒëêÆ”Õã®Dä{P«€‰Æİ\ĞÄÏŸù……]+ğ'Ê@–%,Yºa®7Fù Da4«S R¿œéåñ­›7Æ­_A&+Ak6Ôü@y©oìşˆcÇNùJÃ2Šj-B)¥ ƒZŸ5ÿŞµkXyÏZœ¸„ë€•IA@ÅS†çVßÎ¿ä» ÆD¹J•¨úB±0J
++Úq nˆ¹E=_`ûWÇiiI7e×hÂH¸\cil5c#Cäóiz¸ß÷±QHµÖÎòİhå@PW¨9AÁ1¯­•5=]tfÓ¸Úa~:I5ùäÛQ&jôôt²cûFJããDQ„ˆày.§;†«„*œ»Û<i"Xk¼^bA*§†‹å©ƒ“Ëe9üÅç,êúÑÍÎˆ€6àºgI.^Fíb47ˆDM+Œv è¸ÆL}P«øô­{İo¾ÆD¥2ÙbñƒC‹^ÜöêQP[Ag8Ê!üJÀ©«€"KÜu!²ØĞâ(EXÉf2¬ZµœR©<¥‚édRÄÖƒNOrˆ“°ÆcY{FëiSq£›œRXÄ*îoí¤£%#S§~=É»ï}Hà×Ç×3jøJ¡É±¬@áï î¹áë¥…¹‘AõVW­Ç™f® „‘¥0ø§Š´;:<pq|ÿ¾€Xˆ/h43Ã´GÊMÖ¥^˜­P	¯õÓ„ÉJ‚¸$TBJIBy’PÄ¢”bYQÉùÏ6<Z=H¹ ½½/êí}şP#õ;]åvÏu„wìÚùø>0=Ld†	$’)ŞÙûÁûß|}°
++û¦·Ò¼X ¼8-Á7‚Dë´VÉ®Å]R*«FÈF»Ó.¹lFk-Ğ¶«¯oKo½^õ€ÀÚèiàğ\>sğöøOÇ¨–GÕX±ˆQ¦I‹TSË¼˜§úûÏ‹%5Ü¦dù'–;2/“LÅ“g›<Ék˜ÜÛsE¹ûîmŠÿíßØ_Áÿ¸U¢eÆ    IEND®B`‚
+\ æ–‡ä»¶å°¾æ²¡æœ‰ newline å­—ç¬¦
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/drawable/ethernet_disconnected.png /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/drawable/ethernet_disconnected.png
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/drawable/ethernet_disconnected.png	1970-01-01 08:00:00.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/drawable/ethernet_disconnected.png	2012-11-08 01:46:28.000000000 +0800
+@@ -0,0 +1,8 @@
++‰PNG
++
++   IHDR         Äé…c   sRGB ®Îé   bKGD ÿ ÿ ÿ ½§“   	pHYs     šœ   tIMEÙ	8¾š¦  yIDATHÇí•ßk›eÇ?çyßüMbšŒvµÕ
++¶2Ô½“YkEôFXÖ*ÔTÅ‹‰ÎşnÃ«8&]ã¨Ãy%Sa“Íâ™Œu)ÌFU7;i—_MŞ&y«ÙkMfôR<pnçç÷û}à¿bÒJĞØØØ3ªú°èßäs€_1wMNN.¸-6ÓUõq +"Ú A«ªjŒyPU÷ùs›V*¨ª ?§Óé"r;ğ pïXDV1GšÈµZÄ¿¦	 Ş$.ªªÓëER©Tl(
+++@¥R©-@á:EVİÙ?ÉWÀ€õ7‰¨/nqı°¬Ç´‘nàmkí”1F6Ü«ÔT5¨ˆì†Z…°?‘ŠÈ"rx
++öù°Ó³=N3ãàw×u	‡Ã¥ì:XN¢ "ò0şˆ "Ü?8øÓ‹‹}ÁP|‰¡T,ŞYXğnîíµãh3t	PncÊå2«÷ÁZ&CXPŒ‘úõ¬Õ"Œºñøh§ç•€ş#;C>Ÿg~~"°KkT«²ê8õ˜¶ZM>u.•ğææğóÄ´z¼ Ö2~e™o±å•Wáâ/QäÒ%nzs‚§w¿ÆË—©XKŞjÓ"
++„«’`D¸Õu(ò1šLÒ³÷Öryzß¤”ÍÁÉÜ€Ö4f|¨êi9ëSñ*•.`x-béèGD<ä:Ÿ}·½‹ûß¡zö•ÎëòdVU»¬µ§ÇyÙO´¡¡¡Â¾îqE†AqIrßœFB!z_ßCæù1J?œgÓñ†]_×ÔÔÔ6`›ã8¿—¥?|fffõ¶îîU[(ĞõâKtïç»¡AúM“xô1jÅbÃŸÀø´ë8ğDóŸâê`¡b­ÓïîïçüÎ'ÑJ…ùí¥oÏ^¹Ü5Ò5X× 0©ªŠHÔŸ?—²‹‹w®Õjû¶Eq£e™À…„c1j™ì¡4_Vªz$6µ©šfŒ7®ƒ nç•±X‡íêâìÊ
++‡ÆVJróUÖ'68ù9³nP¾FËqk!ßL…ï‘u%®[µZ•H4ZÆbs¹l–S‘(3ó'	Öx‚i·öëÙsçvñ¿ı[ûWkÃ    IEND®B`‚
+\ æ–‡ä»¶å°¾æ²¡æœ‰ newline å­—ç¬¦
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/layout/signal_cluster_view.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/layout/signal_cluster_view.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/layout/signal_cluster_view.xml	2015-09-11 08:54:36.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/layout/signal_cluster_view.xml	2016-03-24 11:16:29.854047169 +0800
+@@ -44,6 +44,23 @@
+             android:layout_width="wrap_content"
+             />
+     </FrameLayout>
++	<!--add by hclyado for ethernet-->
++	<FrameLayout
++	    android:id="@+id/ethernet_combo"
++	    android:layout_height="wrap_content"
++	    android:layout_width="wrap_content"
++	    android:layout_marginRight="-6dp"
++	    >
++	    <ImageView
++	        android:id="@+id/ethernet_state"
++	        android:layout_height="wrap_content"
++	        android:layout_width="wrap_content"
++	        android:layout_alignParentRight="true"
++	        android:layout_centerVertical="true"
++	        android:scaleType="center"
++	        />
++	</FrameLayout>
++
+     <View
+         android:id="@+id/wifi_signal_spacer"
+         android:layout_width="4dp"
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/values/strings.xml /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/values/strings.xml
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/res/values/strings.xml	2015-10-21 16:32:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/res/values/strings.xml	2016-03-24 09:42:57.318013201 +0800
+@@ -352,6 +352,11 @@
+     <!-- Content description of the data connection with no SIM for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
+     <string name="accessibility_no_sim">No SIM.</string>
+ 
++    <!-- Content description of the Ethernet connected icon for accessibility (not shown on the screen). [CHAR LIMIT=NONE] add by hclydao-->
++    <string name="accessibility_ethernet_connected">Ethernet connected.</string>
++    <string name="accessibility_ethernet_disconnected">Ethernet disconnected.</string>
++    <string name="accessibility_ethernet_connecting">Ethernet connecting.</string>
++
+     <!-- Content description of the bluetooth tethering icon for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
+     <string name="accessibility_bluetooth_tether">Bluetooth tethering.</string>
+ 
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java	2015-10-21 16:32:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java	2016-01-28 19:32:54.969738666 +0800
+@@ -954,7 +954,14 @@
+             // for apps that wish to be on top of the keyguard
+             return;
+         }
+-
++/*
++		if(!SystemProperties.getBoolean("ro.gzsdlockscreen",false)) { //add by hclydao
++            Log.d(TAG, "doKeyguard: not showing because is force set by ro.gzsdlockscreen");
++            setShowingLocked(false);
++            hideLocked();
++			return;
++		}
++*/
+         // if the keyguard is already showing, don't bother
+         if (mStatusBarKeyguardViewManager.isShowing()) {
+             if (DEBUG) Log.d(TAG, "doKeyguard: not showing because it is already showing");
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java	2015-09-11 08:54:36.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java	2016-03-24 16:06:09.318152352 +0800
+@@ -70,7 +70,7 @@
+ import java.util.Locale;
+ import java.util.Map;
+ import java.util.Objects;
+-
++import android.net.EthernetManager;//add by hclydao
+ /** Platform implementation of the network controller. **/
+ public class NetworkControllerImpl extends BroadcastReceiver
+         implements NetworkController, DemoMode {
+@@ -321,6 +321,7 @@
+         cluster.setIsAirplaneMode(mAirplaneMode, TelephonyIcons.FLIGHT_MODE_ICON,
+                 R.string.accessibility_airplane_mode);
+         cluster.setNoSims(mHasNoSims);
++		cluster.setEthernetIndicators(false,R.drawable.ethernet_disconnected,R.string.accessibility_ethernet_disconnected);
+         mWifiSignalController.notifyListeners();
+         for (MobileSignalController mobileSignalController : mMobileSignalControllers.values()) {
+             mobileSignalController.notifyListeners();
+@@ -375,6 +376,12 @@
+         final String action = intent.getAction();
+         if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION_IMMEDIATE) ||
+                 action.equals(ConnectivityManager.INET_CONDITION_ACTION)) {
++/*
++		    final NetworkInfo networkInfo = (NetworkInfo)//add by hclydao
++		            intent.getParcelableExtra("networkInfo");
++			if(networkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)
++					mEthernetConnected = networkInfo.isConnected();
++*/
+             updateConnectivity();
+             refreshCarrierLabel();
+         } else if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
+@@ -593,7 +600,6 @@
+         mInetCondition = !mValidatedTransports.isEmpty();
+         mBluetoothTethered = mConnectedTransports.get(TRANSPORT_BLUETOOTH);
+         mEthernetConnected = mConnectedTransports.get(TRANSPORT_ETHERNET);
+-
+         pushConnectivityToSignals();
+     }
+ 
+@@ -609,6 +615,18 @@
+         }
+         mWifiSignalController.setInetCondition(
+                 mValidatedTransports.get(mWifiSignalController.getTransportType()) ? 1 : 0);
++//add by hclydao
++        int length = mSignalClusters.size();
++		int ethicon = R.drawable.ethernet_connecting;
++		int ethacc = R.string.accessibility_ethernet_connecting;
++		if(mValidatedTransports.get(TRANSPORT_ETHERNET)) {
++			ethicon = R.drawable.ethernet_connected;
++			ethacc = R.string.accessibility_ethernet_connected;
++		}
++        for (int i = 0; i < length; i++) {
++            mSignalClusters.get(i).setEthernetIndicators(mEthernetConnected, ethicon,ethacc);
++        }
++//end add
+     }
+ 
+     /**
+@@ -1790,6 +1808,8 @@
+         void setNoSims(boolean show);
+ 
+         void setIsAirplaneMode(boolean is, int airplaneIcon, int contentDescription);
++		//add by hclydao
++		 public void setEthernetIndicators(boolean visible, int stateIcon, int contentDescription);
+     }
+ 
+     public interface EmergencyListener {
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/SignalClusterView.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/SignalClusterView.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/SignalClusterView.java	2015-09-11 08:54:36.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/SignalClusterView.java	2016-03-24 11:59:51.522062914 +0800
+@@ -55,9 +55,12 @@
+     private int mAirplaneContentDescription;
+     private String mWifiDescription;
+     private ArrayList<PhoneState> mPhoneStates = new ArrayList<PhoneState>();
++    private boolean mEthernetVisible = false;//add by hclydao
++    private int mEthernetStateId = 0;
++	private int mEthernetDescription;
+ 
+-    ViewGroup mWifiGroup;
+-    ImageView mVpn, mWifi, mAirplane, mNoSims;
++    ViewGroup mWifiGroup,mEthernetGroup;//modify by hclydao
++    ImageView mVpn, mWifi, mAirplane, mNoSims,mEthernet;//modify by hclydao
+     View mWifiAirplaneSpacer;
+     View mWifiSignalSpacer;
+     LinearLayout mMobileSignalGroup;
+@@ -116,6 +119,8 @@
+         mWifiAirplaneSpacer =         findViewById(R.id.wifi_airplane_spacer);
+         mWifiSignalSpacer =           findViewById(R.id.wifi_signal_spacer);
+         mMobileSignalGroup = (LinearLayout) findViewById(R.id.mobile_signal_group);
++        mEthernetGroup  = (ViewGroup) findViewById(R.id.ethernet_combo);//add by hclydao
++        mEthernet       = (ImageView) findViewById(R.id.ethernet_state);
+         for (PhoneState state : mPhoneStates) {
+             mMobileSignalGroup.addView(state.mMobileGroup);
+         }
+@@ -129,6 +134,8 @@
+         mWifiGroup      = null;
+         mWifi           = null;
+         mAirplane       = null;
++        mEthernetGroup  = null;//add by hclydao
++        mEthernet	    = null;
+         mMobileSignalGroup.removeAllViews();
+         mMobileSignalGroup = null;
+ 
+@@ -216,6 +223,16 @@
+         apply();
+     }
+ 
++	//add by hclydao
++	@Override
++    public void setEthernetIndicators(boolean visible, int stateIcon, int contentDescription) {
++        mEthernetVisible = visible;
++        mEthernetStateId = stateIcon;
++        mEthernetDescription = contentDescription;
++
++        apply();
++    }
++
+     @Override
+     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+         // Standard group layout onPopulateAccessibilityEvent() implementations
+@@ -308,9 +325,17 @@
+             mWifiSignalSpacer.setVisibility(View.GONE);
+         }
+ 
++        if (mEthernetVisible && !mWifiVisible) {//add by hclydao
++            mEthernetGroup.setVisibility(View.VISIBLE);
++            mEthernet.setImageResource(mEthernetStateId);
++            mEthernetGroup.setContentDescription(mContext.getString(mEthernetDescription));
++        } else {
++            mEthernetGroup.setVisibility(View.GONE);
++        }
++
+         mNoSims.setVisibility(mNoSimsVisible ? View.VISIBLE : View.GONE);
+ 
+-        boolean anythingVisible = mNoSimsVisible || mWifiVisible || mIsAirplaneMode
++        boolean anythingVisible = mNoSimsVisible || mWifiVisible || mIsAirplaneMode || mEthernetVisible
+                 || anyMobileVisible || mVpnVisible;
+         setPaddingRelative(0, 0, anythingVisible ? mEndPadding : mEndPaddingNothingVisible, 0);
+     }
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/policy/src/com/android/internal/policy/impl/ImmersiveModeConfirmation.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/policy/src/com/android/internal/policy/impl/ImmersiveModeConfirmation.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/policy/src/com/android/internal/policy/impl/ImmersiveModeConfirmation.java	2015-09-11 08:54:36.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/policy/src/com/android/internal/policy/impl/ImmersiveModeConfirmation.java	2016-01-21 16:12:11.969303669 +0800
+@@ -46,7 +46,7 @@
+ import android.widget.FrameLayout;
+ 
+ import com.android.internal.R;
+-
++import android.os.SystemProperties; //add by hclydao
+ /**
+  *  Helper to manage showing/hiding a confirmation prompt when the navigation bar is hidden
+  *  entering immersive mode.
+@@ -284,6 +284,9 @@
+             }
+ 
+             mContext.registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED));
++			if(!SystemProperties.getBoolean("gzsd.fullnotify",false)) { //add by hclydao
++				mConfirm.run();//add by hclydao no fullscreen notify
++			}
+         }
+ 
+         @Override
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java	2015-10-21 16:32:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java	2016-01-21 16:06:43.773295826 +0800
+@@ -281,6 +281,7 @@
+     int mStatusBarHeight;
+     WindowState mNavigationBar = null;
+     boolean mHasNavigationBar = false;
++	boolean mHasStatusBar = false;//add by hclydao
+     boolean mCanHideNavigationBar = false;
+     boolean mNavigationBarCanMove = false; // can the navigation bar ever move to the side?
+     boolean mNavigationBarOnBottom = true; // is the navigation bar on the bottom *right now*?
+@@ -1296,18 +1297,24 @@
+                 new SystemGesturesPointerEventListener.Callbacks() {
+                     @Override
+                     public void onSwipeFromTop() {
++						if(isfullscreen())
++							return;
+                         if (mStatusBar != null) {
+                             requestTransientBars(mStatusBar);
+                         }
+                     }
+                     @Override
+                     public void onSwipeFromBottom() {
++						if(isfullscreen())
++							return;
+                         if (mNavigationBar != null && mNavigationBarOnBottom) {
+                             requestTransientBars(mNavigationBar);
+                         }
+                     }
+                     @Override
+                     public void onSwipeFromRight() {
++						if(isfullscreen())
++							return;
+                         if (mNavigationBar != null && !mNavigationBarOnBottom) {
+                             requestTransientBars(mNavigationBar);
+                         }
+@@ -1316,6 +1323,14 @@
+                     public void onDebug() {
+                         // no-op
+                     }
++
++					//add by hclydao
++					public boolean isfullscreen() {
++						WindowState win = mFocusedWindow != null ? mFocusedWindow : mTopFullscreenOpaqueWindowState;
++						if (((win != null) && ((win.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0)) || !mHasStatusBar)
++							return true;
++						return false;
++					}
+                 });
+         mImmersiveModeConfirmation = new ImmersiveModeConfirmation(mContext);
+         mWindowManagerFuncs.registerPointerEventListener(mSystemGestures);
+@@ -1443,6 +1458,13 @@
+             mHasNavigationBar = true;
+         }
+ 
++		//add by hclydao
++        String StatusBarOverride = SystemProperties.get("gzsd.hw.statusbar");
++        if ("1".equals(StatusBarOverride)) {
++            mHasStatusBar = false;
++        } else if ("0".equals(StatusBarOverride)) {
++            mHasStatusBar = true;
++        }
+         // For demo purposes, allow the rotation of the HDMI display to be controlled.
+         // By default, HDMI locks rotation to landscape.
+         if ("portrait".equals(SystemProperties.get("persist.demo.hdmirotation"))) {
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/services/core/java/com/android/server/power/PowerManagerService.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/services/core/java/com/android/server/power/PowerManagerService.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/services/core/java/com/android/server/power/PowerManagerService.java	2015-10-21 16:32:18.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/services/core/java/com/android/server/power/PowerManagerService.java	2016-01-21 15:30:40.341244126 +0800
+@@ -76,7 +76,7 @@
+ import static android.os.PowerManagerInternal.WAKEFULNESS_AWAKE;
+ import static android.os.PowerManagerInternal.WAKEFULNESS_DREAMING;
+ import static android.os.PowerManagerInternal.WAKEFULNESS_DOZING;
+-
++import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;//add by hclydao
+ /**
+  * The power manager service is responsible for coordinating power management
+  * functions on the device.
+@@ -1547,6 +1547,16 @@
+         if (sleepTimeout >= 0) {
+             timeout = Math.min(timeout, sleepTimeout);
+         }
++//add by hclydao for screm timeout
++		if(!SystemProperties.getBoolean("gzsd.screentimeout",false)) { //add by hclydao
++		    final int currentTimeout = Settings.System.getInt(mContext.getContentResolver(),SCREEN_OFF_TIMEOUT,DEFAULT_SCREEN_OFF_TIMEOUT);  
++		    timeout = currentTimeout;
++			if(timeout < 0) {//add by hclydao
++		        timeout = mMaximumScreenOffTimeoutFromDeviceAdmin ;
++		        return Math.max(timeout, mMaximumScreenOffTimeoutFromDeviceAdmin);
++			}
++		}
++//add end
+         return Math.max(timeout, mMinimumScreenOffTimeoutConfig);
+     }
+ 
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/services/java/com/android/server/SystemServer.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/services/java/com/android/server/SystemServer.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/base/services/java/com/android/server/SystemServer.java	2015-10-21 16:32:19.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/base/services/java/com/android/server/SystemServer.java	2016-03-17 10:20:21.059320461 +0800
+@@ -105,6 +105,10 @@
+ import java.util.Timer;
+ import java.util.TimerTask;
+ 
++// hclydao add for nexell hwc property
++import android.provider.Settings;
++import android.provider.Settings.SettingNotFoundException;
++// add end
+ public final class SystemServer {
+     private static final String TAG = "SystemServer";
+ 
+@@ -264,7 +268,8 @@
+         if (StrictMode.conditionallyEnableDebugLogging()) {
+             Slog.i(TAG, "Enabled StrictMode for system server main thread.");
+         }
+-
++		// hclydao add for nexell hwc property
++       // setNexellProperty(mSystemContext);
+         // Loop forever.
+         Looper.loop();
+         throw new RuntimeException("Main thread loop unexpectedly exited");
+@@ -1193,6 +1198,33 @@
+         });
+     }
+ 
++    // hclydao add for nexell hwc property
++    static final void setNexellProperty(Context context) {
++        try {
++            int hwcScale = Settings.System.getInt(context.getContentResolver(), "hwc.scale", 3);
++            Slog.i(TAG, "hwc.scale is " + hwcScale);
++            SystemProperties.set("hwc.scale", Integer.toString(hwcScale));
++        } catch (Throwable e) {
++            Slog.i(TAG, "failed to getInt hwc.scale setting value");
++        }
++
++        try {
++            int hwcResolution = Settings.System.getInt(context.getContentResolver(), "hwc.resolution", 8);//modify 18 to 8 by hclydao
++            Slog.i(TAG, "hwc.resolution is " + hwcResolution);
++            SystemProperties.set("hwc.resolution", Integer.toString(hwcResolution));
++        } catch (Throwable e) {
++            Slog.i(TAG, "failed to getInt hwc.resolution setting value");
++        }
++
++        try {
++            int hwcHDMIScreenDownSizing = Settings.System.getInt(context.getContentResolver(), "hwc.screendownsizing", 0);
++            Slog.i(TAG, "hwc.screendownsizing is " + hwcHDMIScreenDownSizing);
++            SystemProperties.set("hwc.screendownsizing", Integer.toString(hwcHDMIScreenDownSizing));
++        } catch (Throwable e) {
++            Slog.i(TAG, "failed to getInt hwc.screendownsizing setting value");
++        }
++    }
++
+     static final void startSystemUi(Context context) {
+         Intent intent = new Intent();
+         intent.setComponent(new ComponentName("com.android.systemui",

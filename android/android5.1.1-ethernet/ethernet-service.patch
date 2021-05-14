@@ -1,0 +1,106 @@
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetNetworkFactory.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetNetworkFactory.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetNetworkFactory.java	2015-09-11 08:54:49.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetNetworkFactory.java	2016-03-24 16:06:07.606152342 +0800
+@@ -87,7 +87,7 @@
+     private NetworkAgent mNetworkAgent;
+     private LocalNetworkFactory mFactory;
+     private Context mContext;
+-
++	private Handler mHandler;
+     /** Product-dependent regular expression of interface names we track. */
+     private static String mIfaceMatch = "";
+ 
+@@ -269,6 +269,12 @@
+                 if (config.getIpAssignment() == IpAssignment.STATIC) {
+                     if (!setStaticIpAddress(config.getStaticIpConfiguration())) {
+                         // We've already logged an error.
++						//if error then stop and restart add by hclydao
++						if((mContext != null) && (mHandler != null)) {
++							Log.d(TAG, "Setting static ip failed now restart");
++							stop();
++							start(mContext,mHandler);
++						}
+                         return;
+                     }
+                     linkProperties = config.getStaticIpConfiguration().toLinkProperties(mIface);
+@@ -362,7 +368,7 @@
+         mFactory.register();
+ 
+         mContext = context;
+-
++		mHandler = target;//add by hclydao
+         // Start tracking interface change events.
+         mInterfaceObserver = new InterfaceObserver();
+         try {
+@@ -385,6 +391,9 @@
+                         // configuring it. Since we're already holding the lock,
+                         // any real link up/down notification will only arrive
+                         // after we've done this.
++						
++						if(!iface.equals("eth0"))//add by hclydao make sure the interface is eth0
++							continue;
+                         if (mNMService.getInterfaceConfig(iface).hasFlag("running")) {
+                             updateInterfaceState(iface, true);
+                         }
+diff -uraN /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetServiceImpl.java /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetServiceImpl.java
+--- /dao/other-vendor/src4418/lollipop-5.1.1_r6/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetServiceImpl.java	2015-09-11 08:54:49.000000000 +0800
++++ /dao/work/4418/android5.1.1/android5.1.1r6-icool4418-i1.0/frameworks/opt/net/ethernet/java/com/android/server/ethernet/EthernetServiceImpl.java	2016-03-24 15:32:06.330139988 +0800
+@@ -36,7 +36,9 @@
+ import java.io.FileDescriptor;
+ import java.io.PrintWriter;
+ import java.util.concurrent.atomic.AtomicBoolean;
+-
++import android.provider.Settings;//add by hclydao
++import android.net.EthernetManager;//add by hclydao
++import android.os.Looper;
+ /**
+  * EthernetServiceImpl handles remote Ethernet operation requests by implementing
+  * the IEthernetManager interface.
+@@ -87,16 +89,44 @@
+ 
+     public void start() {
+         Log.i(TAG, "Starting Ethernet service");
+-
+         HandlerThread handlerThread = new HandlerThread("EthernetServiceThread");
+         handlerThread.start();
+         mHandler = new Handler(handlerThread.getLooper());
+-
++		int enable = Settings.Global.getInt(mContext.getContentResolver(),Settings.Global.ETHERNET_ON,0);//add by hclydao
++		if(enable != EthernetManager.ETH_STATE_ENABLED) {
++			Log.i(TAG, "Ethernet is not enable");
++			return;
++		}
+         mTracker.start(mContext, mHandler);
+-
+         mStarted.set(true);
+     }
+ 
++	class TstartThread extends Thread {
++		public void run() {
++			Looper.prepare();
++			mTracker.start(mContext, mHandler);
++			mStarted.set(true);
++			Looper.loop();
++		}
++	}
++
++	public void Trackstart() { //add by hclydao
++		new TstartThread().start();
++	}
++
++	public void Trackstop() {
++		Log.i(TAG, "Stop Ethernet service");
++		Thread tstopthread = new Thread(new Runnable() {
++			public void run() {
++				Looper.prepare();
++				mTracker.stop();
++				mStarted.set(false);
++				Looper.loop();
++			}
++		});
++		tstopthread.start();
++	}
++
+     /**
+      * Get Ethernet configuration
+      * @return the Ethernet Configuration, contained in {@link IpConfiguration}.

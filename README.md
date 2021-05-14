@@ -8,4 +8,3 @@
 
 ## [imx6相关记录](https://github.com/hcly/docs/tree/master/imx6)
 
-![打赏](https://github.com/hcly/docs/blob/master/pics/zhifu.png)

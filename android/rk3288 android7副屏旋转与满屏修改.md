@@ -1,23 +1,14 @@
-# rk3288 android7副屏旋转与满屏修改
+# rk3288 android7副屏旋转显示异常与满屏修改
 主屏使用的是HDMI，副屏使用的lvds
 主屏是HMDI转lvds 由于转接模块不支持1280x800 所以设置了hdmi输入源为1280x720 为了保证主屏正常显示 修改了framebuffer为1280x800
 就是由于修改了framebuffer导致副屏显示旋转异常,一定不要设置persist.sys.framebuffer.main这个参数
 ```java
 persist.sys.framebuffer.main=1280x800
 ```
+查找rk资料了解到，双屏同显时，副屏显示是在主屏显示的基础上进行的缩放，双屏异显时，副屏显示是按照副屏实际物理分辨率重新进行了UI绘制
 下面的patch能解决副屏旋转后显示异常及同显时不满屏的问题
 修改patch如下
 ```java
-From fff08b318e0c9ffbe81b14657b8e162455a874bb Mon Sep 17 00:00:00 2001
-From: leijie <leijie@icoolarm.com>
-Date: Wed, 2 Jun 2021 16:22:46 +0800
-Subject: [PATCH] =?UTF-8?q?=E5=89=AF=E5=B1=8F=E6=97=8B=E8=BD=AC,=E6=BB=A1?=
- =?UTF-8?q?=E5=B1=8F=E6=98=BE=E7=A4=BA=E4=BF=AE=E6=94=B9=EF=BC=8C=E5=BC=82?=
- =?UTF-8?q?=E6=98=BE=E6=B5=8B=E8=AF=95=E6=AD=A3=E5=B8=B8?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
 ---
  device/rockchip/rk3288/system.prop                 | 13 ++++++-----
  .../server/display/LocalDisplayAdapter.java        | 20 ++++++++++++++++-
@@ -152,3 +143,9 @@ index 0c63381..68f93ce 100755
 2.7.4
 
 ```
+
+# 参考资料
+
+[https://blog.csdn.net/MrDongShiYi/article/details/96477121/](https://blog.csdn.net/MrDongShiYi/article/details/96477121/)
+
+[https://blog.csdn.net/kris_fei/article/details/86598923](https://blog.csdn.net/kris_fei/article/details/86598923)

@@ -18,4 +18,4 @@
 
 ## [rk3288 android7 ota编译与升级问题记录](https://github.com/hcly/docs/blob/master/android/rk3288%20ota%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8D%87%E7%BA%A7%E9%97%AE%E9%A2%98.md)
 
-## [rk3288 android7副屏旋转与满屏修改](https://github.com/hcly/docs/blob/master/android/rk3288%20android7%E5%89%AF%E5%B1%8F%E6%97%8B%E8%BD%AC%E4%B8%8E%E6%BB%A1%E5%B1%8F%E4%BF%AE%E6%94%B9.md)
+## [rk3288 android7副屏旋转显示异常与满屏修改](https://github.com/hcly/docs/blob/master/android/rk3288%20android7%E5%89%AF%E5%B1%8F%E6%97%8B%E8%BD%AC%E4%B8%8E%E6%BB%A1%E5%B1%8F%E4%BF%AE%E6%94%B9.md)

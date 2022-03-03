@@ -82,7 +82,10 @@ index d932c1b..79a3818
 ```
 ## app调用dmesg保存内核日志问题
 需要修改内核
-  kernel/printk.c check_syslog_permissions return 0
+```C
+kernel/printk.c check_syslog_permissions return 0
+```
+app内核日志保存功能
 ```java
     //dmesg -c must modify kernel/printk.c check_syslog_permissions return 0
     @Override
